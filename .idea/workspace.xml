@@ -5,8 +5,29 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e29717e6-9367-41e6-afea-5ec6f05f9397" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/BooksDb.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/BooksDbInterface.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/Dialog/AddBookDialog.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/Dialog/DialogExampleMain.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/Dialog/FooBook.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/Dialog/Test.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/JDBCTest.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/SearchMode.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/entityClasses/Author.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/entityClasses/Book.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/entityClasses/Genre.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/exceptions/BooksDbException.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/getConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/view/BooksPaneView.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/view/Controller.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dblab/dblab_mongo/hello-view.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/resources/dblab/dblab_mongo/hello-view.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/HelloController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/resources/dblab/dblab_mongo/hello-view.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -29,9 +50,37 @@
   "keyToString": {
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "main"
+    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
+    "git-widget-placeholder": "main",
+    "ignore.virus.scanning.warn.message": "true",
+    "last_opened_file_path": "C:/Users/bjorn/DBLab_Mongo/src/main/java/dblab/dblab_mongo"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\bjorn\DBLab_Mongo\src\main\java\dblab\dblab_mongo" />
+    </key>
+  </component>
+  <component name="RunManager">
+    <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="dblab.dblab_mongo.Main" />
+      <module name="DBLab_Mongo" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="dblab.dblab_mongo.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Application.Main" />
+      </list>
+    </recent_temporary>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
