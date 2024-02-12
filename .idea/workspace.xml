@@ -4,30 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e29717e6-9367-41e6-afea-5ec6f05f9397" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/BooksDb.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/BooksDbInterface.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/Dialog/AddBookDialog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/Dialog/DialogExampleMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/Dialog/FooBook.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/Dialog/Test.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/JDBCTest.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/SearchMode.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/entityClasses/Author.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/entityClasses/Book.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/entityClasses/Genre.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/exceptions/BooksDbException.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/getConnection.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/view/BooksPaneView.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/view/Controller.java" afterDir="false" />
+    <list default="true" id="e29717e6-9367-41e6-afea-5ec6f05f9397" name="Changes" comment="Added code from Lab1">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/HelloApplication.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/Main.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/HelloController.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/module-info.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/module-info.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/dblab/dblab_mongo/hello-view.fxml" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -48,12 +29,19 @@
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "Downloaded.Files.Path.Enabled": "false",
+    "Repository.Attach.Annotations": "false",
+    "Repository.Attach.JavaDocs": "false",
+    "Repository.Attach.Sources": "false",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "git-widget-placeholder": "main",
     "ignore.virus.scanning.warn.message": "true",
-    "last_opened_file_path": "C:/Users/bjorn/DBLab_Mongo/src/main/java/dblab/dblab_mongo"
+    "last_opened_file_path": "C:/Users/bjorn/DBLab_Mongo/src/main/java/dblab/dblab_mongo",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.15",
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
   <component name="RecentsManager">
@@ -90,6 +78,39 @@
       <option name="presentableId" value="Default" />
       <updated>1707727215441</updated>
     </task>
+    <task id="LOCAL-00001" summary="Added code from Lab1">
+      <option name="closed" value="true" />
+      <created>1707733389618</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1707733389618</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Added code from Lab1">
+      <option name="closed" value="true" />
+      <created>1707733656009</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1707733656009</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added mongodb.driver.sync4.x" />
+    <MESSAGE value="Added code from Lab1" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added code from Lab1" />
   </component>
 </project>
