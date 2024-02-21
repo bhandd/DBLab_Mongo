@@ -60,102 +60,38 @@ public class Main extends Application {
         super.stop();
     }
     public static void main(String[] args) {
-        MongoClient mongoClient = new MongoClient() {
-            @Override
-            public MongoDatabase getDatabase(String s) {
-                return null;
-            }
 
-            @Override
-            public ClientSession startSession() {
-                return null;
-            }
+        MongoClient mongoClient;
+        MongoDatabase mongoDb;
+        mongoClient = MongoClients.create("mongodb://localhost:27017");
+        try {
 
-            @Override
-            public ClientSession startSession(ClientSessionOptions clientSessionOptions) {
-                return null;
-            }
 
-            @Override
-            public void close() {
+            mongoDb = mongoClient.getDatabase("Library");
+            System.out.println(mongoDb);
 
-            }
 
-            @Override
-            public MongoIterable<String> listDatabaseNames() {
-                return null;
+            MongoCollection<Document> collection = mongoDb.getCollection("Books");
+            System.out.println(collection);
+            Document query = new Document("_ name", "Kalle Anka");
+            FindIterable<Document> documents = collection.find(query);
+            System.out.println("yes");
+            for (Document document : documents) {
+                System.out.println("yes");
+                System.out.println(document.toJson());
             }
-
-            @Override
-            public MongoIterable<String> listDatabaseNames(ClientSession clientSession) {
-                return null;
-            }
-
-            @Override
-            public ListDatabasesIterable<Document> listDatabases() {
-                return null;
-            }
-
-            @Override
-            public ListDatabasesIterable<Document> listDatabases(ClientSession clientSession) {
-                return null;
-            }
-
-            @Override
-            public <TResult> ListDatabasesIterable<TResult> listDatabases(Class<TResult> aClass) {
-                return null;
-            }
-
-            @Override
-            public <TResult> ListDatabasesIterable<TResult> listDatabases(ClientSession clientSession, Class<TResult> aClass) {
-                return null;
-            }
-
-            @Override
-            public ChangeStreamIterable<Document> watch() {
-                return null;
-            }
-
-            @Override
-            public <TResult> ChangeStreamIterable<TResult> watch(Class<TResult> aClass) {
-                return null;
-            }
-
-            @Override
-            public ChangeStreamIterable<Document> watch(List<? extends Bson> list) {
-                return null;
-            }
-
-            @Override
-            public <TResult> ChangeStreamIterable<TResult> watch(List<? extends Bson> list, Class<TResult> aClass) {
-                return null;
-            }
-
-            @Override
-            public ChangeStreamIterable<Document> watch(ClientSession clientSession) {
-                return null;
-            }
-
-            @Override
-            public <TResult> ChangeStreamIterable<TResult> watch(ClientSession clientSession, Class<TResult> aClass) {
-                return null;
-            }
-
-            @Override
-            public ChangeStreamIterable<Document> watch(ClientSession clientSession, List<? extends Bson> list) {
-                return null;
-            }
-
-            @Override
-            public <TResult> ChangeStreamIterable<TResult> watch(ClientSession clientSession, List<? extends Bson> list, Class<TResult> aClass) {
-                return null;
-            }
-
-            @Override
-            public ClusterDescription getClusterDescription() {
-                return null;
-            }
+        }catch (Exception e){
+            throw new RuntimeException();
         }
+
+        //Skriva till db
+//        Document document = new Document("name", "Reine")
+//                .append("contact", new Document("phone", "4852")
+//                        .append("email", "reineb@kth.se"))
+//                .append("shoe_size", 43);
+//        MongoCollection<Document> collection=;
+//        collection.insertOne(document);
+    }
 
 //        launch(args);
 //        Author author1 = new Author(1, "kalle balle");
@@ -177,5 +113,5 @@ public class Main extends Application {
 //        System.out.println(testbook.toString());
 //        System.out.println("färdig");
 
-    }
+
 }
