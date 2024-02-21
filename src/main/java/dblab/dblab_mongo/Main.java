@@ -12,7 +12,11 @@ import com.mongodb.client.*;
 import org.bson.Document;
 import org.bson.conversions.Bson;
 
+import java.util.Iterator;
 import java.util.List;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 
 //import dbgui.lab1examplegui.model.BooksDbMockImpl;
@@ -61,28 +65,47 @@ public class Main extends Application {
     }
     public static void main(String[] args) {
 
+
+//        //Creating a MongoDB client
+//       MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
+//        //Connecting to the database
+//        MongoDatabase database = mongoClient.getDatabase("Library");
+//        //Creating a collection object
+//        MongoCollection<Document> collection = database.getCollection("Author");
+//        //Retrieving the documents
+//        FindIterable<Document> iterDoc = collection.find();
+//        Iterator it = iterDoc.iterator();
+//        while (it.hasNext()) {
+//            System.out.println(it.next());
+//
+//        }
+
+        Logger logger =  LoggerFactory.getLogger("MyApp");
+       logger.error("Logging an Error");
         MongoClient mongoClient;
         MongoDatabase mongoDb;
         mongoClient = MongoClients.create("mongodb://localhost:27017");
-        try {
-
 
             mongoDb = mongoClient.getDatabase("Library");
             System.out.println(mongoDb);
 
-
-            MongoCollection<Document> collection = mongoDb.getCollection("Books");
-            System.out.println(collection);
-            Document query = new Document("_ name", "Kalle Anka");
-            FindIterable<Document> documents = collection.find(query);
-            System.out.println("yes");
-            for (Document document : documents) {
-                System.out.println("yes");
-                System.out.println(document.toJson());
-            }
-        }catch (Exception e){
-            throw new RuntimeException();
+                MongoCollection<Document> collection = mongoDb.getCollection("Author");
+           // System.out.println(collection);
+             //   Document query = new Document("name", "kalle");
+              //  Document result = collection.find().first();
+               Document  result = collection.find;
+            System.out.println(result);
+                if(result !=null){
+                    String name = result.getString("name");
+                    System.out.println(name);
+                }
+        result = collection.find;
+        System.out.println(result);
+        if(result !=null){
+            String name = result.getString("name");
+            System.out.println(name);
         }
+
 
         //Skriva till db
 //        Document document = new Document("name", "Reine")
