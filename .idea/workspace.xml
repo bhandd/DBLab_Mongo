@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e29717e6-9367-41e6-afea-5ec6f05f9397" name="Changes" comment="connection established">
+    <list default="true" id="e29717e6-9367-41e6-afea-5ec6f05f9397" name="Changes" comment="find book in mongoDB">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/Main.java" afterDir="false" />
     </list>
@@ -119,7 +119,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708524698439</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="find book in mongoDB">
+      <option name="closed" value="true" />
+      <created>1708618016907</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1708618016907</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -139,6 +147,7 @@
     <MESSAGE value="added module mongodb.sync. updated module-info.java and pom.xml" />
     <MESSAGE value="attempt to get document" />
     <MESSAGE value="connection established" />
-    <option name="LAST_COMMIT_MESSAGE" value="connection established" />
+    <MESSAGE value="find book in mongoDB" />
+    <option name="LAST_COMMIT_MESSAGE" value="find book in mongoDB" />
   </component>
 </project>

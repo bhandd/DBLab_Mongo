@@ -1,7 +1,5 @@
 package dblab.dblab_mongo;
 
-import com.mongodb.ClientSessionOptions;
-import com.mongodb.connection.ClusterDescription;
 import dblab.dblab_mongo.model.BooksDb;
 import dblab.dblab_mongo.model.BooksDbInterface;
 import dblab.dblab_mongo.view.BooksPaneView;
@@ -10,13 +8,8 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import com.mongodb.client.*;
 import org.bson.Document;
-import org.bson.conversions.Bson;
 
-import java.util.Iterator;
-import java.util.List;
-
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import static com.mongodb.client.model.Filters.eq;
 
 
 //import dbgui.lab1examplegui.model.BooksDbMockImpl;
@@ -94,8 +87,10 @@ public class Main extends Application {
            // System.out.println(collection);
              //   Document query = new Document("name", "kalle");
               //  Document result = collection.find().first();
-               Document  result = collection.find().first();
-          //  System.out.println(result); //printa hela dokumentet
+
+        //sök första collection
+               Document  result = collection.find(eq("author" , "Tom Sten")).first();
+            System.out.println(result); //printa hela dokumentet
 
                 //spara varje fält i variabel och printa, använd för att lägga in i author
                 if(result !=null){
@@ -112,6 +107,18 @@ public class Main extends Application {
 
                   //      System.out.println(number);
                 }
+
+                //Ta bort
+          //      collection.findOneAndDelete(eq("author" , "Kalle Anka"));
+
+                //sök på en bok
+        FindIterable<Document> find = collection.find(eq("title", "detektivmysteriet"));
+        System.out.println("Documents: " + find);
+        for (MongoCursor<Document> cursor = find.iterator(); cursor.hasNext();) {
+            Document doc = cursor.next();
+            System.out.println(doc.get("title"));
+        }
+
 //
 //        System.out.println(result);
 //        if(result !=null){
