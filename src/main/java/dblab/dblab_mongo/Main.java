@@ -65,8 +65,9 @@ public class Main extends Application {
     }
     public static void main(String[] args) {
 
-
-//        //Creating a MongoDB client
+/**ett sätt
+**/
+        //Creating a MongoDB client
 //       MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
 //        //Connecting to the database
 //        MongoDatabase database = mongoClient.getDatabase("Library");
@@ -79,32 +80,44 @@ public class Main extends Application {
 //            System.out.println(it.next());
 //
 //        }
-
-        Logger logger =  LoggerFactory.getLogger("MyApp");
-       logger.error("Logging an Error");
+/**ett annat sätt*/
+//        Logger logger =  LoggerFactory.getLogger("MyApp");
+//       logger.error("Logging an Error");
         MongoClient mongoClient;
         MongoDatabase mongoDb;
         mongoClient = MongoClients.create("mongodb://localhost:27017");
 
             mongoDb = mongoClient.getDatabase("Library");
-            System.out.println(mongoDb);
 
-                MongoCollection<Document> collection = mongoDb.getCollection("Author");
+
+                MongoCollection<Document> collection = mongoDb.getCollection("Books");
            // System.out.println(collection);
              //   Document query = new Document("name", "kalle");
               //  Document result = collection.find().first();
-               Document  result = collection.find;
-            System.out.println(result);
+               Document  result = collection.find().first();
+          //  System.out.println(result); //printa hela dokumentet
+
+                //spara varje fält i variabel och printa, använd för att lägga in i author
                 if(result !=null){
-                    String name = result.getString("name");
-                    System.out.println(name);
+                    String isbn = result.getString("isbn");
+                   String title = result.getString("title");
+                   String author = result.getString("author");
+                    String published = result.getString("published");
+                    String genre = result.getString("genre");
+                    System.out.println(isbn);
+                    System.out.println(title);
+                    System.out.println(author);
+                    System.out.println(published);
+                    System.out.println(genre);
+
+                  //      System.out.println(number);
                 }
-        result = collection.find;
-        System.out.println(result);
-        if(result !=null){
-            String name = result.getString("name");
-            System.out.println(name);
-        }
+//
+//        System.out.println(result);
+//        if(result !=null){
+//            String name = result.getString("name");
+//            System.out.println(name);
+//        }
 
 
         //Skriva till db
