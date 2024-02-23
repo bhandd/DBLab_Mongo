@@ -6,10 +6,7 @@
 package dblab.dblab_mongo.model;
 
 import com.mongodb.MongoException;
-import com.mongodb.client.MongoClient;
-import com.mongodb.client.MongoClients;
-import com.mongodb.client.MongoCollection;
-import com.mongodb.client.MongoDatabase;
+import com.mongodb.client.*;
 import dblab.dblab_mongo.model.entityClasses.Author;
 import dblab.dblab_mongo.model.entityClasses.Book;
 import dblab.dblab_mongo.model.exceptions.BooksDbException;
@@ -32,7 +29,8 @@ import static com.mongodb.client.model.Filters.eq;
 public class BooksDb implements BooksDbInterface {
 
 
-    private static Connection con = null;
+    private static MongoClient mongoClient = null;
+    private static MongoDatabase mongoDb;
     /**
      * A class that represents a connection to a database.
      *
@@ -65,7 +63,7 @@ return StartConnection() != null;
     public static MongoClient StartConnection() throws Exception {
 
         try {
-            MongoClient mongoClient;
+          //  MongoClient mongoClient;
             MongoDatabase mongoDb;
             mongoClient = MongoClients.create("mongodb://localhost:27017");
             //TODO: för test, ta bort sen
@@ -89,16 +87,18 @@ return StartConnection() != null;
      * */
     @Override
     public void EndConnection() throws SQLException {
-        con.close();
+        mongoClient.close();
         System.out.println("Connection closed.");
     }
 
 /** get a connection
  * */
-    public static Connection getConnection() {
-        return con;
+    public static MongoClient getConnection() {
+        return mongoClient;
     }
 
+    //TODO
+    /*
     private int getAuthorIdByName(String name) throws RuntimeException{
         int authorId = -1;
         String query= "SELECT aut_id FROM T_author WHERE fullName LIKE'%" + name + "%';";
@@ -113,8 +113,10 @@ return StartConnection() != null;
         }
         return authorId;
     }
+*/
 
-
+    //TODO
+    /*
     private int getBookIdFromAuthorId(int authorId) throws RuntimeException{
         int bookId= -1;
         String query= "SELECT book_id FROM book_author WHERE author_id ="+ authorId + ";";
@@ -130,9 +132,10 @@ return StartConnection() != null;
         }
         return bookId;
     }
+*/
 
 
-
+    //TODO
     /**
      * Retrieves a list of author IDs for a specified book ID from the database.
      *
@@ -140,7 +143,7 @@ return StartConnection() != null;
      * @return A list of author IDs for the specified book.
      * @throws RuntimeException If an error occurs during database interaction.
      */
-
+/*
     private static int getAuthorIdFromBookId(int bookId) throws RuntimeException{
         // List<Integer> authorIds = new ArrayList<>();
         int authorId = -1;
@@ -161,7 +164,9 @@ return StartConnection() != null;
         }
         return authorId;
     }
+*/
 
+    //TODO
     /**
      * Retrieves a list of authors for a specified author ID from the database.
      *
@@ -169,6 +174,7 @@ return StartConnection() != null;
      * @return A list of `Author` objects for the specified author.
      * @throws RuntimeException If an error occurs during database interaction.
      */
+    /*
     public static ArrayList<Author> getAuthorsById(int authorId) throws RuntimeException{
         ArrayList<Author> authors =new ArrayList<>();
         String query= "SELECT * FROM T_author WHERE aut_id =" + authorId + ";";
@@ -186,7 +192,9 @@ return StartConnection() != null;
         }
         return authors;
     }
+*/
 
+    //TODO
     /**
      * Get the full name of an author by their ID from the database.
      *
@@ -194,6 +202,7 @@ return StartConnection() != null;
      * @return The full name of the author, or an empty string if the author is not found.
      * @throws RuntimeException If there is an error retrieving the author from the database.
      */
+    /*
     private static String getAuthorNameById(int authorId) throws RuntimeException{
         String author;
         String query= "SELECT fullname FROM T_author WHERE aut_id =" + authorId + ";";
@@ -209,7 +218,7 @@ return StartConnection() != null;
         }
         return author;
     }
-
+*/
     /**
      * Retrieves a list of all books from the database and returns them as a {@code List<Book>} object.
      *
@@ -219,36 +228,47 @@ return StartConnection() != null;
     @Override
     public List<Book> getBookList() throws SQLException {
         List<Book> books = new ArrayList<>();
-        String query = "SELECT T_book.book_id, T_book.isbn, T_book.title, T_author.fullname, T_book.published, T_book.genre, T_book.grade FROM T_book INNER JOIN book_author ON T_book.book_id = book_author.book_id INNER JOIN T_author ON book_author.author_id = T_author.aut_id;";
-        //  Connection con = getConnection.getConnection();
-        try (Statement stmt = getConnection().createStatement()) {
+
+
+     mongoDb =  mongoClient.getDatabase("Library");
+        //Alternativ?
+        //    mongoDb = getConnection().getDatabase("Library");
+/*
+        try {
+            MongoCollection<Document> collection = mongoDb.getCollection("Books");
+           // FindIterable<Document>
+          //  Document result = collection.find();
             // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(query);
+        //    ResultSet rs = stmt.executeQuery(query);
 
             // Get the attribute values
-            while (rs.next()) {
-                int bookId = rs.getInt("book_id");
-                String ISBN = rs.getString("ISBN");
-                String title = rs.getString("title");
-/*
-                Author author = new Author();
-                author.setfName(rs.getString("author"));
-*/
-                String author = rs.getString("fullName");
+
+            while (result.next()) {
+
+                String ISBN = result.getString("ISBN");
+                String title = result.getString("title");
+
+               // Author author = new Author();
+              //  author.setfName(rs.getString("author"));
+
+                String author = result.getString("Author");
                 //String author = rs.getString("author");
-                Date published = rs.getDate("published");
+                String published = result.getString("published");
                 //   int pages = rs.getInt("pages");
                 //  String language = rs.getString("language");
-                String genre = rs.getString("genre");
-                int grade = rs.getInt("grade");
-                Book book = new Book(bookId, ISBN, title, author, published, genre, grade);
+                String genre = result.getString("genre");
+                String grade = result.getString("grade");
+                Book book = new Book(ISBN, title, author, published, genre, grade);
 //                System.out.println(book.toString());
                 books.add(book);
+
             }
             return books ;
         }catch (SQLException e){
             throw new SQLException(e);
         }
+        */
+            return books;
     }
 
 
@@ -260,9 +280,10 @@ return StartConnection() != null;
      * @return A list of books with titles that match the search string.
      * @throws BooksDbException If there is an error searching for the books.
      */
+
     @Override
     public List<Book> searchBookByTitle(String searchFor/*, SearchMode mode*/ ) throws BooksDbException {
-
+/*
         String searchString = "SELECT book_id, isbn, title, published, genre, grade FROM T_book WHERE Title LIKE '%" +searchFor + "%';";
         //  book_id, isbn,  title, published, genre, grade FROM T_book WHERE TITLE ='katbok'
         List<Book> result = new ArrayList<>();
@@ -294,7 +315,12 @@ return StartConnection() != null;
             throw new BooksDbException(e.getMessage());
         }
 //        System.out.println(result.toString());
+
         return result;
+        */
+
+        List<Book> bookList = new ArrayList<>();
+        return bookList;
     }
 
     /**
@@ -306,7 +332,7 @@ return StartConnection() != null;
      */
     @Override
     public List<Book> searchBookByISBN(String searchFor/*, SearchMode mode*/ ) throws BooksDbException {
-
+/*
         String searchString = "SELECT book_id, ISBN, title, published, genre, grade FROM T_book WHERE ISBN LIKE '%" +searchFor + "%';";
         List<Book> result = new ArrayList<>();
         // ArrayList authors = new ArrayList<>();
@@ -336,7 +362,10 @@ return StartConnection() != null;
             throw new BooksDbException(e.getMessage());
         }
         //System.out.println(result.toString());
-        return result;
+
+        return result; */
+        List<Book> bookList = new ArrayList<>();
+        return bookList;
     }
 
 
@@ -349,7 +378,7 @@ return StartConnection() != null;
      */
     @Override
     public List<Book> searchBookByAuthor(String searchFor/*, SearchMode mode*/ ) throws BooksDbException {
-
+/*
         String searchString = "SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade FROM T_book b INNER JOIN book_author ba ON b.book_id = ba.book_id INNER JOIN T_author a ON ba.author_id = a.aut_id WHERE a.fullName LIKE '%" + searchFor + "%';";
         List<Book> result = new ArrayList<>();
         // ArrayList authors = new ArrayList<>();
@@ -379,30 +408,12 @@ return StartConnection() != null;
         } catch (SQLException e) {
             throw new BooksDbException(e.getMessage());
         }
-        return result;
+        return result;*/
+
+        List<Book> bookList = new ArrayList<>();
+        return bookList;
     }
 
-    /**
-     * Retrieves the error count from the database for the specified query.
-     *
-     * @param query The SQL query for which to retrieve the error count.
-     * @return The error count for the specified query.
-     * @throws SQLException If an error occurs during database interaction.
-     */
-    public static int getErrorCount(String query) throws SQLException {
-        int errorCount = 0;
-        try (Statement stmt = getConnection().createStatement()) {
-            //  System.out.println("current query to execute: " + query);
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(query);
-            rs.next();
-            errorCount = rs.getInt("@@error_count");
-            // System.out.println("executed a query");
-        }catch (SQLException e){
-            System.err.println(e.getMessage());
-        }
-        return  errorCount;
-    }
 
 
     /**
@@ -412,6 +423,7 @@ return StartConnection() != null;
      * @throws SQLException If an error occurs during database interaction.
      */
     public static void executeStatement(String statement) throws SQLException {
+      /*
         //  System.out.println("current statement to execute: " +statement);
         try (Statement stmt = getConnection().createStatement()) {
             // Execute the SQL statement
@@ -420,6 +432,7 @@ return StartConnection() != null;
         }catch (SQLException e){
             System.err.println(e.getMessage());
         }
+        */
     }
 
     /**
@@ -430,6 +443,7 @@ return StartConnection() != null;
      */
     @Override
     public void updateGrade(int grade, String title) {
+       /*
         var sql = "UPDATE T_book "
                 + "SET grade = ? "
                 + "WHERE title = ?";
@@ -444,6 +458,7 @@ return StartConnection() != null;
         } catch (SQLException ex) {
             System.err.println(ex.getMessage());
         }
+        */
     }
 
     /**
@@ -459,6 +474,7 @@ return StartConnection() != null;
      */
     @Override
     public void addBook(String isbn, String title, String genre, String fullName, Date publish, String grade) throws SQLException {
+      /*
         try(Statement stmt = getConnection().createStatement()){
             // Execute the SQL statement
             ResultSet rs = stmt.executeQuery("SELECT MAX(book_id) AS currentBookID, MAX(aut_id) AS currentAuthorID\n" +
@@ -495,6 +511,7 @@ return StartConnection() != null;
                 getConnection().setAutoCommit(true);
             }
         }
+        */
     }
 
     /**
@@ -505,6 +522,7 @@ return StartConnection() != null;
      */
     @Override
     public void deleteBook(String title) throws SQLException {
+       /*
         try{
             getConnection().setAutoCommit(false);
             executeStatement("DELETE FROM book_author WHERE book_id IN (SELECT book_id FROM T_book WHERE title = '" + title + "');");
@@ -526,7 +544,7 @@ return StartConnection() != null;
                 getConnection().setAutoCommit(true);
             }
         }
-
+*/
     }
 
     /**används för att kolla om en author existerar i T_book
@@ -535,7 +553,7 @@ return StartConnection() != null;
      *
      * */
     public static boolean authorExists(String author){
-
+/*
         String query = "SELECT COUNT(*) FROM T_author WHERE fullName ='" + author + "'";
         Connection con = getConnection();
         try (Statement stmt = con.createStatement()) {
@@ -548,7 +566,7 @@ return StartConnection() != null;
             }
         } catch (SQLException e) {
             System.err.println(e.getMessage());
-        }
+        }*/
         return false;
     }
 

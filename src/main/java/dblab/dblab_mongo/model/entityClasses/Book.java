@@ -14,17 +14,16 @@ import java.util.List;
 public class Book {
     //TODO: check if all ints has to be converted to strings when displayed in
     // the booksPaneView
-    private int bookId;
+
     private String isbn; // should check format
     private String title;
-    private Date published;
+    private String published;
 
-    private int grade;
+    private String grade;
 
    //  private Genre genre;
     private String genre;
 
-    private String storyLine = "";
     private String author;
 
     //   private ArrayList<Author> authors;
@@ -35,18 +34,20 @@ public class Book {
     //TODO: avkommentera arraylist med authors då detta krävs för att representera relationen mellan book och author
     // avkommentera också String author som parameter i konstruktiorn
     // när detta göra behöver man anpassa implementeringen i övriga programmet
-    public Book(int bookId, String isbn, String title, String author /*Author author ,*/ , Date published, String genre, int grade) {
-        this.bookId = bookId;
+    public Book(String isbn, String title, String author /*Author author ,*/ , String published, String genre, String grade) {
 
         this.isbn = isbn;
         this.title = title;
        // this.authors = new ArrayList<>();
         //    this.author.setfName(author);
         this.author = author;
-
         this.published = published;
        this.genre = genre;
         this.grade = grade;
+
+    }
+
+    public Book() {
 
     }
 
@@ -69,9 +70,7 @@ public class Book {
 //    }
 
 
-    public int getBookId() {
-        return bookId;
-    }
+
 
     public String getIsbn() {
         return isbn;
@@ -81,7 +80,7 @@ public class Book {
         return title;
     }
 
-    public Date getPublished() {
+    public String getPublished() {
         return published;
     }
 
@@ -89,9 +88,6 @@ public class Book {
         return genre;
     }
 
-    public String getStoryLine() {
-        return storyLine;
-    }
 
     public String getAuthor() {
         return author;
@@ -124,7 +120,7 @@ return authors.get(index).toString();
         return genre;
     }
 */
-    public int getGrade() {
+    public String getGrade() {
         return grade;
     }
 
@@ -133,9 +129,7 @@ return authors.get(index).toString();
 //        return authors;
 //    }
 
-    public void setBookId(int bookId) {
-        this.bookId = bookId;
-    }
+
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
@@ -145,12 +139,12 @@ return authors.get(index).toString();
         this.title = title;
     }
 
-    public void setPublished(Date published) {
+    public void setPublished(String published) {
         this.published = published;
     }
 
 
-    public void setGrade(int grade) {
+    public void setGrade(String grade) {
         this.grade = grade;
     }
 
@@ -168,9 +162,7 @@ return authors.get(index).toString();
 //    }
 
 
-    public void setStoryLine(String storyLine) {
-        this.storyLine = storyLine;
-    }
+
 
 
     /**For printing the authors from the List of authors
@@ -201,6 +193,6 @@ public String addAuthor(String name){
 }
     @Override
     public String toString() {
-        return bookId +", "+ isbn + ", " + title + ", "/* + getAuthorsNames(this.authors) +*/+ author + ", " +  published + ", " + genre + ", " + grade;
+        return isbn + ", " + title + ", "/* + getAuthorsNames(this.authors) +*/+ author + ", " +  published + ", " + genre + ", " + grade;
     }
 }

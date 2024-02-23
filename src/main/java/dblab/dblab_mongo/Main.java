@@ -30,7 +30,7 @@ public class Main extends Application {
         BooksDb booksDb = new BooksDb(); // model
         // Don't forget to connect to the db, somewhere...
         try {
-            booksDb.connect();
+          //  booksDb.connect();
             BooksPaneView root = new BooksPaneView(booksDb);
 
             Scene scene = new Scene(root, 800, 600);
@@ -63,7 +63,7 @@ public class Main extends Application {
         //Creating a MongoDB client
 //       MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
 //        //Connecting to the database
-//        MongoDatabase database = mongoClient.getDatabase("Library");
+ //      MongoDatabase database = mongoClient.getDatabase("Library");
 //        //Creating a collection object
 //        MongoCollection<Document> collection = database.getCollection("Author");
 //        //Retrieving the documents
