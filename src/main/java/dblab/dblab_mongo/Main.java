@@ -59,7 +59,7 @@ public class Main extends Application {
     public static void main(String[] args) {
 
 /**ett sätt
-**/
+ **/
         //Creating a MongoDB client
 //       MongoClient mongoClient = MongoClients.create("mongodb://localhost:27017");
 //        //Connecting to the database
@@ -76,24 +76,24 @@ public class Main extends Application {
 /**ett annat sätt*/
 //        Logger logger =  LoggerFactory.getLogger("MyApp");
 //       logger.error("Logging an Error");
+        /*
         MongoClient mongoClient;
         MongoDatabase mongoDb;
         mongoClient = MongoClients.create("mongodb://localhost:27017");
-
             mongoDb = mongoClient.getDatabase("Library");
-
-
                 MongoCollection<Document> collection = mongoDb.getCollection("Books");
-           // System.out.println(collection);
-             //   Document query = new Document("name", "kalle");
-              //  Document result = collection.find().first();
+                */
+        // System.out.println(collection);
+        //   Document query = new Document("name", "kalle");
+        //  Document result = collection.find().first();
 
         //sök första collection
+        /*
                Document  result = collection.find(eq("author" , "Tom Sten")).first();
             System.out.println(result); //printa hela dokumentet
-
-                //spara varje fält i variabel och printa, använd för att lägga in i author
-                if(result !=null){
+*/
+        //spara varje fält i variabel och printa, använd för att lägga in i author
+              /*  if(result !=null){
                     String isbn = result.getString("isbn");
                    String title = result.getString("title");
                    String author = result.getString("author");
@@ -107,17 +107,21 @@ public class Main extends Application {
 
                   //      System.out.println(number);
                 }
+                */
 
-                //Ta bort
-          //      collection.findOneAndDelete(eq("author" , "Kalle Anka"));
+        //Ta bort
+        //      collection.findOneAndDelete(eq("author" , "Kalle Anka"));
 
-                //sök på en bok
+        //sök på en bok
+        /*
         FindIterable<Document> find = collection.find(eq("title", "detektivmysteriet"));
         System.out.println("Documents: " + find);
         for (MongoCursor<Document> cursor = find.iterator(); cursor.hasNext();) {
             Document doc = cursor.next();
             System.out.println(doc.get("title"));
         }
+
+         */
 
 //
 //        System.out.println(result);
@@ -134,9 +138,9 @@ public class Main extends Application {
 //                .append("shoe_size", 43);
 //        MongoCollection<Document> collection=;
 //        collection.insertOne(document);
-    }
+        //   }
 
-//        launch(args);
+        launch(args);
 //        Author author1 = new Author(1, "kalle balle");
 //        Author author2 = new Author(2, "gurra murra");
 //        Author author3 = new Author(2, "gert Stjhärt");
@@ -156,5 +160,5 @@ public class Main extends Application {
 //        System.out.println(testbook.toString());
 //        System.out.println("färdig");
 
-
+    }
 }

@@ -5,13 +5,21 @@
  */
 package dblab.dblab_mongo.model;
 
+import com.mongodb.MongoException;
+import com.mongodb.client.MongoClient;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoCollection;
+import com.mongodb.client.MongoDatabase;
 import dblab.dblab_mongo.model.entityClasses.Author;
 import dblab.dblab_mongo.model.entityClasses.Book;
 import dblab.dblab_mongo.model.exceptions.BooksDbException;
+import org.bson.Document;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.mongodb.client.model.Filters.eq;
 
 /**
  * A mock implementation of the BooksDBInterface interface to demonstrate how to
@@ -54,21 +62,20 @@ return StartConnection() != null;
      * @throws Exception If there is an error connecting to the database.
      * @return The connection to the database.
      */
-    public static Connection StartConnection() throws Exception {
-        String user = ("app_user");//args[0]; // user name
-        String pwd = ("spion");//args[1]; // password
-        System.out.println(user + ", *********");
-        String database = "Library"; // the name of the specific database
-        String server
-                = "jdbc:mysql://localhost:3306/" + database
-                + "?UseClientEnc=UTF8";
-        try (Connection checkConnect = DriverManager.getConnection(server, user, pwd)){
-            con = DriverManager.getConnection(server, user, pwd);
-            //Class.forName("com.mysql.cj.jdbc.Driver");
-            System.out.println("Connected!");
-            return con;
-            //executeQuery(con, "SELECT * FROM T_book");
-        }  catch (SQLException e) {
+    public static MongoClient StartConnection() throws Exception {
+
+        try {
+            MongoClient mongoClient;
+            MongoDatabase mongoDb;
+            mongoClient = MongoClients.create("mongodb://localhost:27017");
+            //TODO: för test, ta bort sen
+            mongoDb = mongoClient.getDatabase("Library");
+            MongoCollection<Document> collection = mongoDb.getCollection("Books");
+            Document  result = collection.find(eq("author" , "Tom Sten")).first();
+            System.out.println(result);
+            return mongoClient;
+
+        }  catch (MongoException e) {
             System.err.println("Connection failed. Error message: " + e.getMessage());
             e.printStackTrace();
             return null;
