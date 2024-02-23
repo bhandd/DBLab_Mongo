@@ -15,6 +15,7 @@ import org.bson.Document;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import static com.mongodb.client.model.Filters.eq;
 
@@ -38,8 +39,7 @@ public class BooksDb implements BooksDbInterface {
      */
     @Override
     public boolean connect() throws Exception {
-
-return StartConnection() != null;
+        return StartConnection() != null;
     }
 
     /**
@@ -49,7 +49,6 @@ return StartConnection() != null;
      * @throws SQLException if an error occurs during database interaction.
      */
     public void disconnect() throws BooksDbException, SQLException {
-
         EndConnection();
     }
 
@@ -227,10 +226,10 @@ return StartConnection() != null;
      */
     @Override
     public List<Book> getBookList() throws SQLException {
-        List<Book> books = new ArrayList<>();
+        //List<Book> books = new ArrayList<>();
 
 
-     mongoDb =  mongoClient.getDatabase("Library");
+        //mongoDb =  mongoClient.getDatabase("Library");
         //Alternativ?
         //    mongoDb = getConnection().getDatabase("Library");
 /*
@@ -268,7 +267,35 @@ return StartConnection() != null;
             throw new SQLException(e);
         }
         */
-            return books;
+        List<Book> books = new ArrayList<>();
+
+        String connectionString = "mongodb://localhost:27017";
+
+        try  {
+
+            MongoDatabase database = mongoClient.getDatabase("Library");
+
+            MongoCollection<Document> collection = database.getCollection("Books");
+
+            FindIterable<Document> documents = collection.find();
+
+            for (Document document : documents) {
+                // Retrieve book attributes from the document
+                String isbn = document.getString("isbn");
+                String title = document.getString("title");
+                String author = document.getString("author");
+                String published = document.getString("published");
+                String genre = document.getString("genre");
+                // String grade = document.getString("grade"); // Uncomment if needed
+
+                Book book = new Book(isbn, title, author, published, genre);
+                books.add(book);
+            }
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+
+        return books;
     }
 
 
@@ -319,8 +346,34 @@ return StartConnection() != null;
         return result;
         */
 
-        List<Book> bookList = new ArrayList<>();
-        return bookList;
+        List<Book> books = new ArrayList<>();
+
+        try  {
+
+            MongoDatabase database = mongoClient.getDatabase("Library");
+
+            MongoCollection<Document> collection = database.getCollection("Books");
+
+            Pattern regexPattern = Pattern.compile(searchFor, Pattern.CASE_INSENSITIVE);
+
+            Document query = new Document("title", regexPattern);
+
+            FindIterable<Document> documents = collection.find(query);
+
+            for (Document document : documents) {
+                String isbn = document.getString("isbn");
+                String title = document.getString("title");
+                String author = document.getString("author");
+                String published = document.getString("published");
+                String genre = document.getString("genre");
+
+                Book book = new Book(isbn, title, author, published, genre);
+                books.add(book);
+            }
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return books;
     }
 
     /**

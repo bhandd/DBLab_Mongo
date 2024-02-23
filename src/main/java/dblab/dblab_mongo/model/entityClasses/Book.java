@@ -2,8 +2,8 @@ package dblab.dblab_mongo.model.entityClasses;
 
 import dblab.dblab_mongo.model.Dialog.FooBook;
 
-import java.sql.Date;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -34,7 +34,7 @@ public class Book {
     //TODO: avkommentera arraylist med authors då detta krävs för att representera relationen mellan book och author
     // avkommentera också String author som parameter i konstruktiorn
     // när detta göra behöver man anpassa implementeringen i övriga programmet
-    public Book(String isbn, String title, String author /*Author author ,*/ , String published, String genre, String grade) {
+    public Book(String isbn, String title, String author /*Author author ,*/ , String published, String genre /*String grade*/) {
 
         this.isbn = isbn;
         this.title = title;
@@ -43,7 +43,7 @@ public class Book {
         this.author = author;
         this.published = published;
        this.genre = genre;
-        this.grade = grade;
+        //this.grade = grade;
 
     }
 
