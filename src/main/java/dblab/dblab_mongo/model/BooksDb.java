@@ -417,8 +417,34 @@ public class BooksDb implements BooksDbInterface {
         //System.out.println(result.toString());
 
         return result; */
-        List<Book> bookList = new ArrayList<>();
-        return bookList;
+        List<Book> books = new ArrayList<>();
+
+        try  {
+
+            MongoDatabase database = mongoClient.getDatabase("Library");
+
+            MongoCollection<Document> collection = database.getCollection("Books");
+
+            Pattern regexPattern = Pattern.compile(searchFor, Pattern.CASE_INSENSITIVE);
+
+            Document query = new Document("isbn", regexPattern);
+
+            FindIterable<Document> documents = collection.find(query);
+
+            for (Document document : documents) {
+                String isbn = document.getString("isbn");
+                String title = document.getString("title");
+                String author = document.getString("author");
+                String published = document.getString("published");
+                String genre = document.getString("genre");
+
+                Book book = new Book(isbn, title, author, published, genre);
+                books.add(book);
+            }
+        } catch (Exception e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+        return books;
     }
 
 
