@@ -3,8 +3,8 @@ package dblab.dblab_mongo.model;
 import dblab.dblab_mongo.model.entityClasses.Book;
 import dblab.dblab_mongo.model.exceptions.BooksDbException;
 
-import java.sql.Date;
 import java.sql.SQLException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -48,8 +48,8 @@ public interface BooksDbInterface {
      * @throws Exception If an error occurs during the insertion.
      */
 
-    public void addBook(String isbn, String title, String genre, String fullName, Date publish, String grade) throws SQLException;
-
-  //  public List<Book> getBookByAuthor(String name) throws SQLException, BooksDbException;
+    //public void addBook(String isbn, String title, String genre, String fullName, Date publish, String grade) throws RuntimeException;
+    public void addBook(String isbn, String title, String fullName, Date publish, String genre, String grade) throws RuntimeException;
+    //  public List<Book> getBookByAuthor(String name) throws SQLException, BooksDbException;
 
 }

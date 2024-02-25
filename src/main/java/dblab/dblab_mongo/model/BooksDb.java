@@ -11,9 +11,11 @@ import dblab.dblab_mongo.model.entityClasses.Author;
 import dblab.dblab_mongo.model.entityClasses.Book;
 import dblab.dblab_mongo.model.exceptions.BooksDbException;
 import org.bson.Document;
+import org.bson.types.ObjectId;
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -577,8 +579,13 @@ public class BooksDb implements BooksDbInterface {
      * @param grade The grade level of the book to be added.
      * @throws SQLException If an error occurs during database interaction.
      */
-    @Override
-    public void addBook(String isbn, String title, String genre, String fullName, Date publish, String grade) throws SQLException {
+@Override
+    public void addBook(String isbn, String title, String fullName, Date publish,String genre, String grade) throws RuntimeException
+    {
+
+        String publishedString = publish.toString();
+        String testGrade = grade;
+
       /*
         try(Statement stmt = getConnection().createStatement()){
             // Execute the SQL statement
@@ -617,6 +624,28 @@ public class BooksDb implements BooksDbInterface {
             }
         }
         */
+
+        try {
+
+            MongoDatabase database = mongoClient.getDatabase("Library");
+            MongoCollection<Document> collection = database.getCollection("Books");
+
+            Document document = new Document("isbn", isbn)
+                            .append("title", title)
+                            .append("Author", fullName)
+                            .append("published", publishedString)
+                            .append("genre", genre);
+                    //  .append("stuff", Arrays.asList("bajen", "Hammarby") //Array
+
+            collection.insertOne(document);
+            ObjectId id = document.getObjectId("_id"); // id
+            System.out.println("Added new book with id:" + id);
+
+        } catch (RuntimeException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+
+
     }
 
     /**
