@@ -19,7 +19,6 @@ import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
-import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -357,12 +356,16 @@ public class Controller  {
             grid.add(titleField, 2, 1);
 
             alert.getDialogPane().setContent(grid);
-            alert.showAndWait();
-            title = titleField.getText();
+            Optional<ButtonType> result =  alert.showAndWait();
+            if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
+                // Reset all fields if user cancels
+                titleField.setText("");
+            }else{
+                title = titleField.getText();
+                onSearchSelected(title, SearchMode.Title);
+                titleField.setText("");
+            }
 
-            onSearchSelected(title, SearchMode.Title);
-
-            titleField.setText("");
         }
     };
 
@@ -396,12 +399,16 @@ public class Controller  {
             grid.add(ISBNField, 2, 1);
 
             alert.getDialogPane().setContent(grid);
-            alert.showAndWait();
-            ISBN = ISBNField.getText();
+            Optional<ButtonType> result =  alert.showAndWait();
+            if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
+                // Reset all fields if user cancels
+                ISBNField.setText("");
+            }else{
+                ISBN = ISBNField.getText();
+                onSearchSelected(ISBN, SearchMode.ISBN);
+                ISBNField.setText("");
+            }
 
-            onSearchSelected(ISBN, SearchMode.ISBN);
-
-            ISBNField.setText("");
         }
     };
 
@@ -415,7 +422,7 @@ public class Controller  {
      * @param actionEvent The event triggered by the author search action.
      */
     public EventHandler<ActionEvent> AuthorSearch = new EventHandler<ActionEvent>() {
-        private TextField AuthorField = new TextField();
+        private TextField authorField = new TextField();
 
         private Alert alert = new Alert(CONFIRMATION);
 
@@ -432,15 +439,19 @@ public class Controller  {
             grid.setVgap(5);
             grid.setPadding(new Insets(10, 10, 10, 10));
             grid.add(new Label("Title for book "), 1, 1);
-            grid.add(AuthorField, 2, 1);
+            grid.add(authorField, 2, 1);
 
             alert.getDialogPane().setContent(grid);
-            alert.showAndWait();
-            Author = AuthorField.getText();
+            Optional<ButtonType> result =  alert.showAndWait();
+            if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
+                // Reset all fields if user cancels
+                authorField.setText("");
+            }else{
+                Author = authorField.getText();
+                onSearchSelected(Author, SearchMode.Author);
+                authorField.setText("");
+            }
 
-            onSearchSelected(Author, SearchMode.Author);
-
-            AuthorField.setText("");
         }
     };
 
