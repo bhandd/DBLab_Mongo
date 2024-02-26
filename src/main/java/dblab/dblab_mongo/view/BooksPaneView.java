@@ -106,12 +106,12 @@ public class BooksPaneView extends VBox {
         TableColumn<Book, String> authorCol = new TableColumn<>("Author"); //one author
         TableColumn<Book, Date> publishedCol = new TableColumn<>("Published");
         TableColumn<Book, String> genreCol = new TableColumn<>("Genre");
-        //TableColumn<Book, Integer> gradeCol = new TableColumn<>("Grade");
+        TableColumn<Book, Integer> gradeCol = new TableColumn<>("Grade");
         //  TableColumn<Book, Integer> pagesCol = new TableColumn<>("Pages");
         //  TableColumn<Book, String> languageCol = new TableColumn<>("Language");
 
         //TODO: add idCol, authorCol and gradeCol,,publishedCol , languageCol, genreCol(pages col can probably be omitted
-        booksTable.getColumns().addAll(idCol, isbnCol, authorCol, titleCol, publishedCol, genreCol/*, gradeCol */);
+        booksTable.getColumns().addAll(idCol, isbnCol, authorCol, titleCol, publishedCol, genreCol, gradeCol );
         // give title column some extra space
         titleCol.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.5));
 
@@ -125,7 +125,7 @@ public class BooksPaneView extends VBox {
         publishedCol.setCellValueFactory(new PropertyValueFactory<>("published"));
         genreCol.setCellValueFactory(new PropertyValueFactory<>("genre"));
 
-        //gradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
+        gradeCol.setCellValueFactory(new PropertyValueFactory<>("grade"));
         // associate the table view with the data
         booksTable.setItems(booksInTable);
     }

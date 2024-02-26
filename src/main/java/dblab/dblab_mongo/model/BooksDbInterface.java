@@ -49,7 +49,7 @@ public interface BooksDbInterface {
      */
 
     //public void addBook(String isbn, String title, String genre, String fullName, Date publish, String grade) throws RuntimeException;
-    public void addBook(String isbn, String title, String fullName, String publish, String genre) throws RuntimeException;
+    public void addBook(String isbn, String title, String fullName, String publish, String genre, String Grade) throws RuntimeException;
     //  public List<Book> getBookByAuthor(String name) throws SQLException, BooksDbException;
 
 }

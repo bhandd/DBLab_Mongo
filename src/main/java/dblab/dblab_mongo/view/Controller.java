@@ -203,7 +203,7 @@ public class Controller  {
             new Thread(() -> {
                 try {
                     // Database code to add a book
-                    booksDb.addBook(isbn, title, author, published, genre);
+                    booksDb.addBook(isbn, title, author, published, genre, grade);
                     // Update UI components with data using Platform.runLater()
                     Platform.runLater(() -> {
                         isbnFiled.setText("");

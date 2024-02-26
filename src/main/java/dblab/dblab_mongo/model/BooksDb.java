@@ -228,47 +228,7 @@ public class BooksDb implements BooksDbInterface {
      */
     @Override
     public List<Book> getBookList() throws SQLException {
-        //List<Book> books = new ArrayList<>();
 
-
-        //mongoDb =  mongoClient.getDatabase("Library");
-        //Alternativ?
-        //    mongoDb = getConnection().getDatabase("Library");
-/*
-        try {
-            MongoCollection<Document> collection = mongoDb.getCollection("Books");
-           // FindIterable<Document>
-          //  Document result = collection.find();
-            // Execute the SQL statement
-        //    ResultSet rs = stmt.executeQuery(query);
-
-            // Get the attribute values
-
-            while (result.next()) {
-
-                String ISBN = result.getString("ISBN");
-                String title = result.getString("title");
-
-               // Author author = new Author();
-              //  author.setfName(rs.getString("author"));
-
-                String author = result.getString("Author");
-                //String author = rs.getString("author");
-                String published = result.getString("published");
-                //   int pages = rs.getInt("pages");
-                //  String language = rs.getString("language");
-                String genre = result.getString("genre");
-                String grade = result.getString("grade");
-                Book book = new Book(ISBN, title, author, published, genre, grade);
-//                System.out.println(book.toString());
-                books.add(book);
-
-            }
-            return books ;
-        }catch (SQLException e){
-            throw new SQLException(e);
-        }
-        */
         List<Book> books = new ArrayList<>();
 
         String connectionString = "mongodb://localhost:27017";
@@ -288,9 +248,9 @@ public class BooksDb implements BooksDbInterface {
                 String author = document.getString("author");
                 String published = document.getString("published");
                 String genre = document.getString("genre");
-                // String grade = document.getString("grade"); // Uncomment if needed
+                String grade = document.getString("grade"); // Uncomment if needed
 
-                Book book = new Book(isbn, title, author, published, genre);
+                Book book = new Book(isbn, title, author, published, genre, grade);
                 books.add(book);
             }
         } catch (Exception e) {
@@ -353,13 +313,9 @@ public class BooksDb implements BooksDbInterface {
         try  {
 
             MongoDatabase database = mongoClient.getDatabase("Library");
-
             MongoCollection<Document> collection = database.getCollection("Books");
-
             Pattern regexPattern = Pattern.compile(searchFor, Pattern.CASE_INSENSITIVE);
-
             Document query = new Document("title", regexPattern);
-
             FindIterable<Document> documents = collection.find(query);
 
             for (Document document : documents) {
@@ -368,8 +324,8 @@ public class BooksDb implements BooksDbInterface {
                 String author = document.getString("author");
                 String published = document.getString("published");
                 String genre = document.getString("genre");
-
-                Book book = new Book(isbn, title, author, published, genre);
+                String grade = document.getString("grade");
+                Book book = new Book(isbn, title, author, published, genre, grade);
                 books.add(book);
             }
         } catch (Exception e) {
@@ -439,8 +395,9 @@ public class BooksDb implements BooksDbInterface {
                 String author = document.getString("author");
                 String published = document.getString("published");
                 String genre = document.getString("genre");
+                String grade = document.getString("grade");
 
-                Book book = new Book(isbn, title, author, published, genre);
+                Book book = new Book(isbn, title, author, published, genre, grade);
                 books.add(book);
             }
         } catch (Exception e) {
@@ -511,8 +468,9 @@ public class BooksDb implements BooksDbInterface {
                 String author = document.getString("author");
                 String published = document.getString("published");
                 String genre = document.getString("genre");
+                String grade = document.getString("grade");
 
-                Book book = new Book(isbn, title, author, published, genre);
+                Book book = new Book(isbn, title, author, published, genre, grade);
                 books.add(book);
             }
         } catch (Exception e) {
@@ -579,48 +537,9 @@ public class BooksDb implements BooksDbInterface {
      * @throws SQLException If an error occurs during database interaction.
      */
     @Override
-    public void addBook(String isbn, String title, String fullName, String publish, String genre) throws RuntimeException
+    public void addBook(String isbn, String title, String fullName, String publish, String genre, String grade) throws RuntimeException
     {
         //String testGrade = grade;
-
-      /*
-        try(Statement stmt = getConnection().createStatement()){
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery("SELECT MAX(book_id) AS currentBookID, MAX(aut_id) AS currentAuthorID\n" +
-                    "FROM T_book\n" +
-                    "LEFT JOIN T_author\n" +
-                    "ON book_id = aut_id;;");
-
-            rs.next();
-            int currentBook_id = rs.getInt("currentBookID") + 1;
-            int currentAut_id = rs.getInt("currentAuthorID") + 1;
-            getConnection().setAutoCommit(false);
-
-            if (!authorExists(fullName)) {
-                executeStatement("INSERT INTO T_Author (fullName) VALUES ( '" + fullName + "');");
-               // System.out.println("Author" + fullName + "added!");
-            }
-            executeStatement("INSERT INTO T_book (isbn, title, genre, published, grade) VALUES ('" + isbn + "' ,'" + title + "' ,'" + genre + "' ,'" + publish +  "' ,'" + grade + "' );");
-            //gör både lägg till T_book och lägg till book_id, aut_id i book_autho
-            executeStatement("INSERT INTO book_author (book_id, author_id) VALUES (" + currentBook_id  + ","  + currentAut_id + " );");
-
-
-        }catch(SQLException e){
-           throw new SQLException(e.getMessage());
-        }finally {
-            // Kontrollera om det finns några fel
-            int realErrorCount = getErrorCount(" SELECT @@error_count;");
-            if (realErrorCount != 0) {
-                // Gör en rollback
-                getConnection().rollback();
-                getConnection().setAutoCommit(true);
-
-            } else {
-                // Gör en commit
-                getConnection().setAutoCommit(true);
-            }
-        }
-        */
 
         try {
 
@@ -629,9 +548,11 @@ public class BooksDb implements BooksDbInterface {
 
             Document document = new Document("isbn", isbn)
                             .append("title", title)
-                            .append("Author", fullName)
+                            .append("author", fullName)
                             .append("published", publish)
-                            .append("genre", genre);
+                            .append("genre", genre)
+                            .append("grade", grade);
+
                     //  .append("stuff", Arrays.asList("bajen", "Hammarby") //Array
 
             collection.insertOne(document);
