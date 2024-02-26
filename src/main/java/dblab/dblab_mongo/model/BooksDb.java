@@ -272,41 +272,6 @@ public class BooksDb implements BooksDbInterface {
 
     @Override
     public List<Book> searchBookByTitle(String searchFor/*, SearchMode mode*/ ) throws BooksDbException {
-/*
-        String searchString = "SELECT book_id, isbn, title, published, genre, grade FROM T_book WHERE Title LIKE '%" +searchFor + "%';";
-        //  book_id, isbn,  title, published, genre, grade FROM T_book WHERE TITLE ='katbok'
-        List<Book> result = new ArrayList<>();
-        // ArrayList authors = new ArrayList<>();
-
-        try (Statement stmt = getConnection().createStatement()) {
-
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(searchString);
-            while (rs.next()) {
-                int bookId = rs.getInt("book_id");
-                String ISBN = rs.getString("ISBN");
-                String title = rs.getString("title");
-//                List<Integer> authorIds = getAuthorIdForBook(bookId);
-//                for(int i = 0; i < authorIds.size(); i++){
-//                    authors.add(getAuthorById(authorIds.get(i)));
-//                }
-//                String author = rs.getString("fullname");
-                String author = getAuthorNameById(getAuthorIdFromBookId(bookId));
-                Date published = rs.getDate("published");
-                String genre = rs.getString("genre");
-                int grade = rs.getInt("grade");
-                Book book = new Book(bookId, ISBN, title, author, published, genre, grade);
-                result.add(book);
-                // book.addAuthor(authors);
-            }
-            rs.close();
-        } catch (SQLException e) {
-            throw new BooksDbException(e.getMessage());
-        }
-//        System.out.println(result.toString());
-
-        return result;
-        */
 
         List<Book> books = new ArrayList<>();
 
@@ -343,38 +308,7 @@ public class BooksDb implements BooksDbInterface {
      */
     @Override
     public List<Book> searchBookByISBN(String searchFor/*, SearchMode mode*/ ) throws BooksDbException {
-/*
-        String searchString = "SELECT book_id, ISBN, title, published, genre, grade FROM T_book WHERE ISBN LIKE '%" +searchFor + "%';";
-        List<Book> result = new ArrayList<>();
-        // ArrayList authors = new ArrayList<>();
-        try (Statement stmt = getConnection().createStatement()) {
 
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(searchString);
-            while (rs.next()) {
-                int bookId = rs.getInt("book_id");
-                String ISBN = rs.getString("ISBN");
-                String title = rs.getString("title");
-//                List<Integer> authorIds = getAuthorIdForBook(bookId);
-//                for(int i = 0; i < authorIds.size(); i++){
-//                    authors.add(getAuthorById(authorIds.get(i)));
-//                }
-//                String author = rs.getString("fullname");
-                String author = getAuthorNameById(getAuthorIdFromBookId(bookId));
-                Date published = rs.getDate("published");
-                String genre = rs.getString("genre");
-                int grade = rs.getInt("grade");
-                Book book = new Book(bookId, ISBN, title, author, published, genre, grade);
-                result.add(book);
-                // book.addAuthor(authors);
-            }
-            rs.close();
-                    } catch (SQLException e) {
-            throw new BooksDbException(e.getMessage());
-        }
-        //System.out.println(result.toString());
-
-        return result; */
         List<Book> books = new ArrayList<>();
 
         try  {
@@ -416,37 +350,6 @@ public class BooksDb implements BooksDbInterface {
      */
     @Override
     public List<Book> searchBookByAuthor(String searchFor/*, SearchMode mode*/ ) throws BooksDbException {
-/*
-        String searchString = "SELECT b.book_id, b.isbn,  b.title, a.fullName, b.published, b.genre, b.grade FROM T_book b INNER JOIN book_author ba ON b.book_id = ba.book_id INNER JOIN T_author a ON ba.author_id = a.aut_id WHERE a.fullName LIKE '%" + searchFor + "%';";
-        List<Book> result = new ArrayList<>();
-        // ArrayList authors = new ArrayList<>();
-
-        try (Statement stmt = getConnection().createStatement()) {
-            // Execute the SQL statement
-            ResultSet rs = stmt.executeQuery(searchString);
-            while (rs.next()) {
-                int bookId = rs.getInt("book_id");
-                String ISBN = rs.getString("ISBN");
-                String title = rs.getString("title");
-//                List<Integer> authorIds = getAuthorIdForBook(bookId);
-//                for(int i = 0; i < authorIds.size(); i++){
-//                    authors.add(getAuthorById(authorIds.get(i)));
-//                }
-                String author = rs.getString("fullName");
-           //     String author = getAuthorNameById(getAuthorIdFromBookId(bookId));
-                Date published = rs.getDate("published");
-                String genre = rs.getString("genre");
-                int grade = rs.getInt("grade");
-                Book book = new Book(bookId, ISBN, title,searchFor, published, genre, grade);
-               // System.out.println(book.toString());
-                result.add(book);
-
-            }
-            rs.close();
-        } catch (SQLException e) {
-            throw new BooksDbException(e.getMessage());
-        }
-        return result;*/
 
         List<Book> books = new ArrayList<>();
 
@@ -597,6 +500,27 @@ public class BooksDb implements BooksDbInterface {
             }
         }
 */
+
+        try {
+
+            MongoDatabase database = mongoClient.getDatabase("Library");
+            MongoCollection<Document> collection = database.getCollection("Books");
+            Document document = collection.findOneAndDelete(eq("title", title));
+
+
+            ObjectId id = document.getObjectId("_id"); // id
+            String isbn = document.getString("isbn");
+            String deletedTitle = document.getString("title");
+            String author = document.getString("author");
+            System.out.println("Deleted document with id:" + id
+                    +"\n ISBN: " + isbn
+                    +"\n Title: " + deletedTitle
+                    +"\n Author: " + author);
+
+        } catch (RuntimeException e) {
+            System.err.println("Error: " + e.getMessage());
+        }
+
     }
 
     /**används för att kolla om en author existerar i T_book
