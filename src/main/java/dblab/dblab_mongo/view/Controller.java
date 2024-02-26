@@ -23,6 +23,7 @@ import java.sql.Date;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static javafx.scene.control.Alert.AlertType.*;
 
@@ -147,15 +148,14 @@ public class Controller  {
         String grade = null;
 
         private TextField titleField = new TextField();
-        private TextField isbnFiled = new TextField();
-        private TextField authorFiled = new TextField();
-        private TextField publishedFiled = new TextField();
+        private TextField isbnField = new TextField();
+        private TextField authorField = new TextField();
+        private TextField publishedField = new TextField();
         private TextField gradeField = new TextField();
-        private ComboBox<Genre> gradeComboBox = new ComboBox<>();
+        private ComboBox<Genre> genreComboBox = new ComboBox<>();
 
         @Override
         public void handle(ActionEvent actionEvent) {
-            List<Book> books = new ArrayList<>();
             alert.setTitle("Add book");
             alert.setResizable(false);
 
@@ -165,63 +165,60 @@ public class Controller  {
             grid.setVgap(5);
             grid.setPadding(new Insets(10, 10, 10, 10));
             grid.add(new Label("Isbn for book "), 1, 1);
-            grid.add(isbnFiled, 2, 1);
+            grid.add(isbnField, 2, 1);
             grid.add(new Label("Enter title of book "), 1, 2);
             grid.add(titleField, 2, 2);
             grid.add(new Label("Author that wrote book "), 1, 3);
-            grid.add(authorFiled, 2, 3);
+            grid.add(authorField, 2, 3);
             grid.add(new Label("Add publish date "), 1, 4);
-            grid.add(publishedFiled, 2, 4);
+            grid.add(publishedField, 2, 4);
             grid.add(new Label("Chose genre to book "), 1, 5);
-            grid.add(gradeComboBox, 2, 5);
-            grid.add(new Label("Set grad to book"), 1, 6);
+            grid.add(genreComboBox, 2, 5);
+            grid.add(new Label("Set grade to book"), 1, 6);
             grid.add(gradeField, 2, 6);
 
-            gradeComboBox.getItems().addAll(Genre.values());
+            genreComboBox.getItems().addAll(Genre.values());
+
             alert.getDialogPane().setContent(grid);
 
-            // Add listener to handle cancel action
-            alert.setResultConverter(dialogButton -> {
-                if (dialogButton == ButtonType.OK) {
-                    return ButtonType.OK;
-                }
-                // Clear all fields and reset ComboBox selection if cancel button is clicked
-                isbnFiled.clear();
-                titleField.clear();
-                authorFiled.clear();
-                publishedFiled.clear();
-                gradeField.clear();
-                gradeComboBox.getSelectionModel().clearSelection();
-                return null;
-            });
+            Optional<ButtonType> result = alert.showAndWait();
 
-            alert.showAndWait();
-
-            isbn = isbnFiled.getText();
-            title = titleField.getText();
-            author = authorFiled.getText();
-            genre = String.valueOf(gradeComboBox.getValue());
-            published = publishedFiled.getText();
-            grade = gradeField.getText();
-            new Thread(() -> {
-                try {
-                    // Database code to add a book
-                    booksDb.addBook(isbn, title, author, published, genre, grade);
-                    // Update UI components with data using Platform.runLater()
-                    Platform.runLater(() -> {
-                        isbnFiled.setText("");
-                        titleField.setText("");
-                        authorFiled.setText("");
-                        publishedFiled.setText("");
-                        gradeField.setText("");
-                        gradeComboBox.setItems(FXCollections.observableArrayList());
-                    });
-                } catch (Exception e) {
-                    System.out.println("An error occurred in handle addBookDB: " + e.getMessage());
-                }
-            }).start();
+            if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
+                // Reset all fields if user cancels
+                isbnField.setText("");
+                titleField.setText("");
+                authorField.setText("");
+                publishedField.setText("");
+                gradeField.setText("");
+                genreComboBox.setValue(null);
+            } else {
+                isbn = isbnField.getText();
+                title = titleField.getText();
+                author = authorField.getText();
+                published = publishedField.getText();
+                genre = genreComboBox.getValue() != null ? genreComboBox.getValue().toString() : null;
+                grade = gradeField.getText();
+                // Add book to the database
+                new Thread(() -> {
+                    try {
+                        // Database code to add a book
+                        booksDb.addBook(isbn, title, author, published, genre, grade);
+                        Platform.runLater(() -> {
+                            isbnField.setText("");
+                            titleField.setText("");
+                            authorField.setText("");
+                            publishedField.setText("");
+                            gradeField.setText("");
+                            genreComboBox.setItems(FXCollections.observableArrayList());
+                        });
+                    } catch (Exception e) {
+                        System.out.println("An error occurred in adding the book: " + e.getMessage());
+                    }
+                }).start();
+            }
         }
     };
+
 
 
     /**

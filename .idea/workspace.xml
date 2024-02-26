@@ -4,7 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e29717e6-9367-41e6-afea-5ec6f05f9397" name="Changes" comment="working with updateGrade()" />
+    <list default="true" id="e29717e6-9367-41e6-afea-5ec6f05f9397" name="Changes" comment="Add">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/view/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/view/Controller.java" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -193,7 +196,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708937387474</updated>
     </task>
-    <option name="localTasksCounter" value="15" />
+    <task id="LOCAL-00015" summary="Add">
+      <option name="closed" value="true" />
+      <created>1708954092489</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1708954092489</updated>
+    </task>
+    <option name="localTasksCounter" value="16" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -221,6 +232,7 @@
     <MESSAGE value="addBook()-COMPLETE, but may need some errorcheck" />
     <MESSAGE value="deleteBook()-WORKING (check for errors)" />
     <MESSAGE value="working with updateGrade()" />
-    <option name="LAST_COMMIT_MESSAGE" value="working with updateGrade()" />
+    <MESSAGE value="Add" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add" />
   </component>
 </project>
