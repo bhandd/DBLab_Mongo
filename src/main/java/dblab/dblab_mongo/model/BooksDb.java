@@ -475,7 +475,7 @@ public class BooksDb implements BooksDbInterface {
      * @throws SQLException If an error occurs during database interaction.
      */
     @Override
-    public void deleteBook(String title) throws SQLException {
+    public void deleteBook(String title) throws BooksDbException {
 
         try {
 
@@ -494,7 +494,7 @@ public class BooksDb implements BooksDbInterface {
                     +"\n Author: " + author);
 
         } catch (RuntimeException e) {
-            System.err.println("Error: " + e.getMessage());
+           throw new BooksDbException(e.getMessage());
         }
 
     }

@@ -30,7 +30,7 @@ public interface BooksDbInterface {
     public boolean connect() throws Exception;
     public void updateGrade(/*int grade*/String grade, String title)throws BooksDbException;
 
-    public void deleteBook(String title) throws SQLException;
+    public void deleteBook(String title) throws BooksDbException;
     public void EndConnection() throws BooksDbException, SQLException;
 
     List<Book> getBookList() throws SQLException;

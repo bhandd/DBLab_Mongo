@@ -310,19 +310,23 @@ public class Controller  {
             grid.add(titleField, 2, 1);
 
             alert.getDialogPane().setContent(grid);
-            alert.showAndWait();
-            title = titleField.getText();
-            new Thread(() -> {
-                try {
-                    booksDb.deleteBook(title);
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                    //TODO. hantera på nåt bra vis
-                }
-                Platform.runLater(() -> {
-                    titleField.setText("");
-                });
-            }).start();
+            Optional<ButtonType> result =  alert.showAndWait();
+            if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
+                // Reset all fields if user cancels
+                titleField.setText("");
+            }else{
+                title = titleField.getText();
+                new Thread(() -> {
+                    try {
+                        booksDb.deleteBook(title);
+                    } catch (BooksDbException e) {
+                        System.err.println(e.getMessage());
+                    }
+                    Platform.runLater(() -> {
+                        titleField.setText("");
+                    });
+                }).start();
+            }
         }
     };
 
