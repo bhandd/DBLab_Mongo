@@ -255,20 +255,29 @@ public class Controller  {
             grid.add(gradeField, 2, 2);
 
             alert.getDialogPane().setContent(grid);
-            alert.showAndWait();
-            title = titleField.getText();
-            gradeValue = gradeField.getText();
-            new Thread(() -> {
-                try {
-                    booksDb.updateGrade(/*Integer.parseInt(gradeValue)*/gradeValue, String.valueOf(title));
-                    Platform.runLater(() -> {
-                        titleField.setText("");
-                        gradeField.setText("");
-                    });
-                } catch (BooksDbException e) {
-                    throw new RuntimeException(e);
-                }
-            }).start();
+
+            Optional<ButtonType> result =  alert.showAndWait();
+            if (result.isPresent() && result.get().getButtonData() == ButtonBar.ButtonData.CANCEL_CLOSE) {
+                // Reset all fields if user cancels
+                titleField.setText("");
+                gradeField.setText("");
+             //   gradeComboBox.setValue(null);
+            }else {
+
+                title = titleField.getText();
+                gradeValue = gradeField.getText();
+                new Thread(() -> {
+                    try {
+                        booksDb.updateGrade(/*Integer.parseInt(gradeValue)*/gradeValue, String.valueOf(title));
+                        Platform.runLater(() -> {
+                            titleField.setText("");
+                            gradeField.setText("");
+                        });
+                    } catch (BooksDbException e) {
+                        throw new RuntimeException(e);
+                    }
+                }).start();
+            }
         }
     };
 

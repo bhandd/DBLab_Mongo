@@ -411,36 +411,20 @@ public class BooksDb implements BooksDbInterface {
      */
     @Override
     public void updateGrade(/*int grade*/String grade, String title)throws BooksDbException {
-        //TODO:if-sats för att kolla grade mellan 1-5?
-       /*
-        var sql = "UPDATE T_book "
-                + "SET grade = ? "
-                + "WHERE title = ?";
+        //TODO:if-sats för att kolla grade mellan 1-5? Eller begränsing i mongo-databasen?
 
-        try (var stmt = getConnection().prepareStatement(sql)) {
-            stmt.setString(2, title);
-            stmt.setInt(1, grade);
-
-            // execute the update
-            int rowAffected = stmt.executeUpdate();
-            System.out.println("Row affected " + rowAffected);
-        } catch (SQLException ex) {
-            System.err.println(ex.getMessage());
-        }
-        */
-        try{
+            try{
             MongoDatabase database = mongoClient.getDatabase("Library");
             MongoCollection<Document> collection = database.getCollection("Books");
 
             Document query = new Document("title", title);
-            Document update = new Document("grade", grade);
-//                    .append("contact", new Document("phone", "4852")
-//                            .append("email", "reineb@kth.se"))
-//                    .append("shoe_size", 43);
-            collection.findOneAndUpdate(query, update);
-        }catch(MongoException e){
+            Document update = new Document("$set", new Document("grade", grade));
+
+         Document updatedDoc = collection.findOneAndUpdate(query, update);
+            System.out.println("updated the document: " + updatedDoc);
+            }catch(MongoException e){
             throw new BooksDbException(e.toString()); //TODO:rätt?
-        }
+            }
 
     }
 
