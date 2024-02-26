@@ -16,10 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
 import java.sql.Date;
@@ -144,29 +141,20 @@ public class Controller  {
 
         String isbn = null;
         String title = null;
-
         String author = null;
-
         String published = null;
         String genre = null;
         String grade = null;
 
         private TextField titleField = new TextField();
-
         private TextField isbnFiled = new TextField();
-
         private TextField authorFiled = new TextField();
-
         private TextField publishedFiled = new TextField();
-
         private TextField gradeField = new TextField();
-
         private ComboBox<Genre> gradeComboBox = new ComboBox<>();
 
         @Override
         public void handle(ActionEvent actionEvent) {
-
-            // Connection con = getConnection.getConnection();
             List<Book> books = new ArrayList<>();
             alert.setTitle("Add book");
             alert.setResizable(false);
@@ -191,11 +179,26 @@ public class Controller  {
 
             gradeComboBox.getItems().addAll(Genre.values());
             alert.getDialogPane().setContent(grid);
+
+            // Add listener to handle cancel action
+            alert.setResultConverter(dialogButton -> {
+                if (dialogButton == ButtonType.OK) {
+                    return ButtonType.OK;
+                }
+                // Clear all fields and reset ComboBox selection if cancel button is clicked
+                isbnFiled.clear();
+                titleField.clear();
+                authorFiled.clear();
+                publishedFiled.clear();
+                gradeField.clear();
+                gradeComboBox.getSelectionModel().clearSelection();
+                return null;
+            });
+
             alert.showAndWait();
 
             isbn = isbnFiled.getText();
             title = titleField.getText();
-            //genre = titleField.getText();
             author = authorFiled.getText();
             genre = String.valueOf(gradeComboBox.getValue());
             published = publishedFiled.getText();
@@ -219,6 +222,7 @@ public class Controller  {
             }).start();
         }
     };
+
 
     /**
      * Event handler for updating the grade of a book in the database.
