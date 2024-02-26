@@ -410,7 +410,8 @@ public class BooksDb implements BooksDbInterface {
      * @param title The title of the book to update.
      */
     @Override
-    public void updateGrade(int grade, String title) {
+    public void updateGrade(int grade, String title)throws BooksDbException {
+        //TODO:if-sats för att kolla grade mellan 1-5?
        /*
         var sql = "UPDATE T_book "
                 + "SET grade = ? "
@@ -427,6 +428,19 @@ public class BooksDb implements BooksDbInterface {
             System.err.println(ex.getMessage());
         }
         */
+        try{
+            MongoDatabase database = mongoClient.getDatabase("Library");
+            MongoCollection<Document> collection = database.getCollection("Books");
+
+//            Document document = new Document("name", "Reine")
+//                    .append("contact", new Document("phone", "4852")
+//                            .append("email", "reineb@kth.se"))
+//                    .append("shoe_size", 43);
+          //  collection.findOneAndUpdate(eq("title", grade));
+        }catch(MongoException e){
+            throw new BooksDbException(e.toString()); //TODO:rätt?
+        }
+
     }
 
     /**
@@ -445,7 +459,7 @@ public class BooksDb implements BooksDbInterface {
         //String testGrade = grade;
 
         try {
-
+            //TODO: Gör mongoClient och collection till globala variabler?
             MongoDatabase database = mongoClient.getDatabase("Library");
             MongoCollection<Document> collection = database.getCollection("Books");
 
@@ -477,29 +491,6 @@ public class BooksDb implements BooksDbInterface {
      */
     @Override
     public void deleteBook(String title) throws SQLException {
-       /*
-        try{
-            getConnection().setAutoCommit(false);
-            executeStatement("DELETE FROM book_author WHERE book_id IN (SELECT book_id FROM T_book WHERE title = '" + title + "');");
-            // System.out.println("Deleted in book_author");
-            executeStatement("DELETE FROM T_book WHERE title = '"+ title + "' and book_id <> 0;");
-        }catch(SQLException e){
-            throw new SQLException(e.getMessage());
-        }finally {
-            // Kontrollera om det finns några fel
-            int errorCount = getConnection().getTransactionIsolation();
-            int realErrorCount = getErrorCount(" SELECT @@error_count;");
-            if (realErrorCount != 0) {
-                // Gör en rollback
-                getConnection().rollback();
-                getConnection().setAutoCommit(true);
-            } else {
-                // Gör en commit
-                executeStatement("commit;");
-                getConnection().setAutoCommit(true);
-            }
-        }
-*/
 
         try {
 

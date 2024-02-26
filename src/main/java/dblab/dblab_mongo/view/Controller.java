@@ -264,7 +264,7 @@ public class Controller  {
                         titleField.setText("");
                         gradeField.setText("");
                     });
-                } catch (NumberFormatException e) {
+                } catch (BooksDbException e) {
                     throw new RuntimeException(e);
                 }
             }).start();
