@@ -576,15 +576,12 @@ public class BooksDb implements BooksDbInterface {
      * @param genre The genre of the book to be added.
      * @param fullName The full name of the author of the book to be added.
      * @param publish The date of publication of the book to be added.
-     * @param grade The grade level of the book to be added.
      * @throws SQLException If an error occurs during database interaction.
      */
-@Override
-    public void addBook(String isbn, String title, String fullName, Date publish,String genre, String grade) throws RuntimeException
+    @Override
+    public void addBook(String isbn, String title, String fullName, String publish, String genre) throws RuntimeException
     {
-
-        String publishedString = publish.toString();
-        String testGrade = grade;
+        //String testGrade = grade;
 
       /*
         try(Statement stmt = getConnection().createStatement()){
@@ -633,7 +630,7 @@ public class BooksDb implements BooksDbInterface {
             Document document = new Document("isbn", isbn)
                             .append("title", title)
                             .append("Author", fullName)
-                            .append("published", publishedString)
+                            .append("published", publish)
                             .append("genre", genre);
                     //  .append("stuff", Arrays.asList("bajen", "Hammarby") //Array
 
