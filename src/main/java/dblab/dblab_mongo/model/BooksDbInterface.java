@@ -1,10 +1,6 @@
 package dblab.dblab_mongo.model;
-
 import dblab.dblab_mongo.model.entityClasses.Book;
 import dblab.dblab_mongo.model.exceptions.BooksDbException;
-
-import java.sql.SQLException;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -31,25 +27,15 @@ public interface BooksDbInterface {
     public void updateGrade(/*int grade*/String grade, String title)throws BooksDbException;
 
     public void deleteBook(String title) throws BooksDbException;
-    public void EndConnection() throws BooksDbException, SQLException;
+    public void EndConnection() throws BooksDbException;
 
-    List<Book> getBookList() throws SQLException;
+    List<Book> getBookList() throws BooksDbException;
 
     List<Book> searchBookByTitle(String query/* SearchMode mode*/) throws BooksDbException;
     public List<Book> searchBookByISBN(String searchFor/*, SearchMode mode*/ ) throws BooksDbException;
 
     public List<Book> searchBookByAuthor(String searchFor/*, SearchMode mode*/ ) throws BooksDbException;
-    /**
-     * Adds a new book to the database. (Rating is not done here?)
-     *
-     * @param title The title of the book.
-     * @param isbn  The ISBN of the book.
-     * @param genre The genre of the book.
-     * @throws Exception If an error occurs during the insertion.
-     */
 
-    //public void addBook(String isbn, String title, String genre, String fullName, Date publish, String grade) throws RuntimeException;
-    public void addBook(String isbn, String title, String fullName, String publish, String genre, String Grade) throws RuntimeException;
-    //  public List<Book> getBookByAuthor(String name) throws SQLException, BooksDbException;
+  public void addBook(String isbn, String title, String fullName, String publish, String genre, String Grade) throws BooksDbException;
 
 }

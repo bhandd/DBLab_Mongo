@@ -121,8 +121,8 @@ public class Controller  {
             try {
             //  books = booksDb.getBookList();
                 booksView.displayBooks(booksDb.getBookList());
-            } catch (SQLException e) {
-                throw new RuntimeException(e);
+            } catch (BooksDbException e) {
+                System.err.println("error: " + e.getMessage());
             }
         }
     };
@@ -476,7 +476,7 @@ public class Controller  {
         public void handle(ActionEvent actionEvent) {
             try {
                 booksDb.EndConnection();
-            } catch (SQLException | BooksDbException e) {
+            } catch (BooksDbException e) {
                 throw new RuntimeException(e);
             }
         }
