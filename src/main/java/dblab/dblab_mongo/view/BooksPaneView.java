@@ -99,7 +99,7 @@ public class BooksPaneView extends VBox {
         booksTable.setPlaceholder(new Label("No rows to display"));
 
         // define columns
-        TableColumn<Book, Integer> idCol = new TableColumn<>("Book ID");
+        TableColumn<Book, Integer> idCol = new TableColumn<>("Book ID"); //TODO:behövs?
         TableColumn<Book, String> isbnCol = new TableColumn<>("ISBN");
         TableColumn<Book, String> titleCol = new TableColumn<>("Title");
         //   TableColumn<Book, List<Author>> authorCol = new TableColumn<>("Author"); //more than 1 author
@@ -117,7 +117,7 @@ public class BooksPaneView extends VBox {
 
         // define how to fill data for each cell,
         // get values from Book properties
-        idCol.setCellValueFactory(new PropertyValueFactory<>("bookId"));
+       // idCol.setCellValueFactory(new PropertyValueFactory<>("_id")); //TODO:Behövs?
         isbnCol.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
         //  authorCol.setCellValueFactory(new PropertyValueFactory<>("authors")); //more than 1 author

@@ -410,7 +410,7 @@ public class BooksDb implements BooksDbInterface {
      * @param title The title of the book to update.
      */
     @Override
-    public void updateGrade(int grade, String title)throws BooksDbException {
+    public void updateGrade(/*int grade*/String grade, String title)throws BooksDbException {
         //TODO:if-sats för att kolla grade mellan 1-5?
        /*
         var sql = "UPDATE T_book "
@@ -432,11 +432,12 @@ public class BooksDb implements BooksDbInterface {
             MongoDatabase database = mongoClient.getDatabase("Library");
             MongoCollection<Document> collection = database.getCollection("Books");
 
-//            Document document = new Document("name", "Reine")
+            Document query = new Document("title", title);
+            Document update = new Document("grade", grade);
 //                    .append("contact", new Document("phone", "4852")
 //                            .append("email", "reineb@kth.se"))
 //                    .append("shoe_size", 43);
-          //  collection.findOneAndUpdate(eq("title", grade));
+            collection.findOneAndUpdate(query, update);
         }catch(MongoException e){
             throw new BooksDbException(e.toString()); //TODO:rätt?
         }

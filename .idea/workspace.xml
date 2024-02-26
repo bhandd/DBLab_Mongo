@@ -4,10 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e29717e6-9367-41e6-afea-5ec6f05f9397" name="Changes" comment="deleteBook()-WORKING (check for errors)">
+    <list default="true" id="e29717e6-9367-41e6-afea-5ec6f05f9397" name="Changes" comment="working with updateGrade()">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/BooksDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/BooksDb.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/BooksDbInterface.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/BooksDbInterface.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/view/BooksPaneView.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/view/BooksPaneView.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/view/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/view/Controller.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -190,7 +191,15 @@
       <option name="project" value="LOCAL" />
       <updated>1708933916561</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="working with updateGrade()">
+      <option name="closed" value="true" />
+      <created>1708937387474</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1708937387474</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -217,6 +226,7 @@
     <MESSAGE value="Added grade to book, fixed the grade and author in the add-book-method" />
     <MESSAGE value="addBook()-COMPLETE, but may need some errorcheck" />
     <MESSAGE value="deleteBook()-WORKING (check for errors)" />
-    <option name="LAST_COMMIT_MESSAGE" value="deleteBook()-WORKING (check for errors)" />
+    <MESSAGE value="working with updateGrade()" />
+    <option name="LAST_COMMIT_MESSAGE" value="working with updateGrade()" />
   </component>
 </project>

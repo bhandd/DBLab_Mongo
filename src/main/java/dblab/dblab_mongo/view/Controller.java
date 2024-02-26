@@ -259,7 +259,7 @@ public class Controller  {
             gradeValue = gradeField.getText();
             new Thread(() -> {
                 try {
-                    booksDb.updateGrade(Integer.parseInt(gradeValue), String.valueOf(title));
+                    booksDb.updateGrade(/*Integer.parseInt(gradeValue)*/gradeValue, String.valueOf(title));
                     Platform.runLater(() -> {
                         titleField.setText("");
                         gradeField.setText("");
