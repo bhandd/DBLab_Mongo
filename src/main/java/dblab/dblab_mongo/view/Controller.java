@@ -197,6 +197,15 @@ public class Controller  {
                 published = publishedField.getText();
                 genre = genreComboBox.getValue() != null ? genreComboBox.getValue().toString() : null;
                 grade = gradeField.getText();
+
+                if (isbn.isEmpty() || title.isEmpty() || published.isEmpty() || genre == null || grade.isEmpty()) {
+                    Alert validationAlert = new Alert(Alert.AlertType.ERROR);
+                    validationAlert.setTitle("Error");
+                    validationAlert.setHeaderText(null);
+                    validationAlert.setContentText("Please fill in all fields");
+                    validationAlert.showAndWait();
+                    return;
+                }
                 // Add book to the database
                 new Thread(() -> {
                     try {
@@ -265,6 +274,15 @@ public class Controller  {
 
                 title = titleField.getText();
                 gradeValue = gradeField.getText();
+
+                if(gradeValue.isEmpty()) {
+                    Alert validationAlert = new Alert(Alert.AlertType.ERROR);
+                    validationAlert.setTitle("Error");
+                    validationAlert.setHeaderText(null);
+                    validationAlert.setContentText("Please fill in all fields");
+                    validationAlert.showAndWait();
+                    return;
+                }
                 new Thread(() -> {
                     try {
                         booksDb.updateGrade(/*Integer.parseInt(gradeValue)*/gradeValue, String.valueOf(title));
