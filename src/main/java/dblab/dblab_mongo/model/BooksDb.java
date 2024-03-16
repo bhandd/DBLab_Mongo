@@ -86,6 +86,62 @@ public class BooksDb implements BooksDbInterface {
         System.out.println("Connection closed.");
     }
 
+
+/**Fetches an authors name from the DB based on author-id.
+ *
+ * returns Author with a name if author is found.
+ * returns null, if no author is found
+ * */
+
+    private Author getAuthorNameById(String id) throws BooksDbException{
+        Author author = new Author();
+        try  {
+            MongoDatabase database = mongoClient.getDatabase("Library");
+            MongoCollection<Document> collection = database.getCollection("Author");
+            Document query = new Document("id_", id);
+            FindIterable<Document> documents = collection.find(query);
+
+            Document document = documents.first();
+            if(document != null){
+                String authorName = document.getString("name");
+                author.setfName(authorName);
+                return author;
+            }else {
+                return null;
+            }
+        } catch (MongoException e) {
+            throw new BooksDbException(e.getMessage());
+        }
+    }
+
+
+    /**Fetches an authors name from the DB based on author-id.
+     *
+     * returns Author with a name if author is found.
+     * returns null, if no author is found
+     * */
+
+    private String getAuthorIdByName(String id) throws BooksDbException{
+        Author author = new Author();
+        try  {
+            MongoDatabase database = mongoClient.getDatabase("Library");
+            MongoCollection<Document> collection = database.getCollection("Author");
+            Document query = new Document("name", id);
+            FindIterable<Document> documents = collection.find(query);
+
+            Document document = documents.first();
+            if(document != null){
+                String authorId = document.getString("id");
+
+                return authorId;
+            }else {
+                return null;
+            }
+        } catch (MongoException e) {
+            throw new BooksDbException(e.getMessage());
+        }
+    }
+
     //TODO: check if needed
 /** get a connection
  * */
@@ -219,6 +275,10 @@ public class BooksDb implements BooksDbInterface {
         return books;
     }
 
+
+
+
+
     /**
      * Searches for books by ISBN and returns a list of matching books.
      *
@@ -276,13 +336,10 @@ public class BooksDb implements BooksDbInterface {
         try  {
 
             MongoDatabase database = mongoClient.getDatabase("Library");
-
             MongoCollection<Document> collection = database.getCollection("Books");
 
             Pattern regexPattern = Pattern.compile(searchFor, Pattern.CASE_INSENSITIVE);
-
             Document query = new Document("author", regexPattern);
-
             FindIterable<Document> documents = collection.find(query);
 
             for (Document document : documents) {
@@ -313,7 +370,6 @@ public class BooksDb implements BooksDbInterface {
      */
     @Override
     public void updateGrade(/*int grade*/String grade, String title)throws BooksDbException {
-        //TODO:if-sats för att kolla grade mellan 1-5? Eller begränsing i mongo-databasen?
 
             try{
             MongoDatabase database = mongoClient.getDatabase("Library");

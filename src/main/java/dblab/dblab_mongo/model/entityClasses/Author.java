@@ -17,7 +17,7 @@ public class Author {
    }
 
    public Author() {
-
+      this.fullName = "";
    }
 
    public int getAge() {

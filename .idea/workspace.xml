@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e29717e6-9367-41e6-afea-5ec6f05f9397" name="Changes" comment="Added checks for field">
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-02-25_08_31_[Changes]/shelved.patch" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_2024-02-25_08_31__Changes_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/BooksDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/BooksDb.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/entityClasses/Author.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/entityClasses/Author.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/entityClasses/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/entityClasses/Book.java" afterDir="false" />
@@ -53,6 +52,7 @@
     "project.structure.last.edited": "Modules",
     "project.structure.proportion": "0.15",
     "project.structure.side.proportion": "0.2",
+    "run.code.analysis.last.selected.profile": "pProject Default",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
