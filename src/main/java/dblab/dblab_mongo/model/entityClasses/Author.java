@@ -2,7 +2,7 @@ package dblab.dblab_mongo.model.entityClasses;
 
 public class Author {
 
-   private int id;
+   private int age;
    private String fullName;
 
    //private String lName;
@@ -10,8 +10,8 @@ public class Author {
  *
  * */
 //TODO: check if we need a fName and lName string or if a fullName will suffice
-   public Author(int id, String fullName/*String lName*/) {
-      this.id = id;
+   public Author(int age, String fullName/*String lName*/) {
+      this.age = age;
       this.fullName = fullName;
     //  this.lName = lName;
    }
@@ -20,12 +20,12 @@ public class Author {
 
    }
 
-   public int getId() {
-      return id;
+   public int getAge() {
+      return age;
    }
 
-   public void setId(int id) {
-      this.id = id;
+   public void setAge(int age) {
+      this.age = age;
    }
 
    public String getFullName() {
@@ -51,7 +51,7 @@ public class Author {
    @Override
    public String toString() {
       return "Author{" +
-              "id=" + id +
+              "id=" + age +
               ", fName='" + fullName + '\'' +
               '}';
    }

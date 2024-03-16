@@ -17,6 +17,7 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 import static com.mongodb.client.model.Filters.eq;
+import static java.lang.String.*;
 
 /**
  * A mock implementation of the BooksDBInterface interface to demonstrate how to
@@ -64,11 +65,8 @@ public class BooksDb implements BooksDbInterface {
             mongoClient = MongoClients.create("mongodb://localhost:27017");
             //TODO: för test, ta bort sen
             mongoDb = mongoClient.getDatabase("Library");
-            MongoCollection<Document> collection = mongoDb.getCollection("Books");
-            Document  result = collection.find(eq("author" , "Tom Sten")).first();
-            System.out.println(result);
+            System.out.println("Yes");
             return mongoClient;
-
         }  catch (MongoException e) {
             System.err.println("Connection failed. Error message: " + e.getMessage());
             e.printStackTrace();
@@ -102,7 +100,7 @@ public class BooksDb implements BooksDbInterface {
      * @return A list of all books in the database, or an empty list if there are no books.
      * @throws BooksDbException If there is an error retrieving the books from the database.
      */
-    @Override
+    /*@Override
     public List<Book> getBookList() throws BooksDbException{
 
         List<Book> books = new ArrayList<>();
@@ -134,7 +132,53 @@ public class BooksDb implements BooksDbInterface {
         }
 
         return books;
+    }*/
+
+    @Override
+    public List<Book> getBookList() throws BooksDbException {
+        List<Book> books = new ArrayList<>();
+
+        String connectionString = "mongodb://localhost:27017";
+
+        try {
+            MongoDatabase database = mongoClient.getDatabase("Library");
+            MongoCollection<Document> collection = database.getCollection("Books");
+
+            FindIterable<Document> documents = collection.find();
+
+            for (Document document : documents) {
+                String isbn = document.getString("isbn");
+                String title = document.getString("title");
+
+                // Retrieve list of authors as Document objects
+                List<Document> authorDocuments = document.getList("authors", Document.class);
+
+                // Map each author document to Author object
+                List<Author> authors = new ArrayList<>();
+                for (Document authorDoc : authorDocuments) {
+                    String authorName = authorDoc.getString("name");
+                    Integer ageInteger = authorDoc.getInteger("age");
+                    int age = (ageInteger != null) ? ageInteger.intValue() : 0;
+                    // Create Author object
+                    Author author = new Author(age, authorName);
+                    authors.add(author);
+                }
+
+                String published = document.getString("published");
+                String genre = document.getString("genre");
+                String grade = "2";//document.getString("grade"); // Uncomment if needed
+
+                // Create a new Book object for each retrieved document
+                Book book = new Book(isbn, title, authors, published, genre, grade);
+                books.add(book);
+            }
+        } catch (MongoException e) {
+            throw new BooksDbException(e.getMessage());
+        }
+
+        return books;
     }
+
 
 
 
@@ -162,11 +206,11 @@ public class BooksDb implements BooksDbInterface {
             for (Document document : documents) {
                 String isbn = document.getString("isbn");
                 String title = document.getString("title");
-                String author = document.getString("author");
+                List<Author> authors = document.getList("authors", Author.class);
                 String published = document.getString("published");
                 String genre = document.getString("genre");
                 String grade = document.getString("grade");
-                Book book = new Book(isbn, title, author, published, genre, grade);
+                Book book = new Book(isbn, title, authors, published, genre, grade);
                 books.add(book);
             }
         } catch (MongoException e) {
@@ -202,12 +246,12 @@ public class BooksDb implements BooksDbInterface {
             for (Document document : documents) {
                 String isbn = document.getString("isbn");
                 String title = document.getString("title");
-                String author = document.getString("author");
+                List<Author> authors = document.getList("authors", Author.class);
                 String published = document.getString("published");
                 String genre = document.getString("genre");
                 String grade = document.getString("grade");
 
-                Book book = new Book(isbn, title, author, published, genre, grade);
+                Book book = new Book(isbn, title, authors, published, genre, grade);
                 books.add(book);
             }
         } catch (MongoException e) {
@@ -244,12 +288,12 @@ public class BooksDb implements BooksDbInterface {
             for (Document document : documents) {
                 String isbn = document.getString("isbn");
                 String title = document.getString("title");
-                String author = document.getString("author");
+                List<Author> authors = document.getList("authors", Author.class);
                 String published = document.getString("published");
                 String genre = document.getString("genre");
                 String grade = document.getString("grade");
 
-                Book book = new Book(isbn, title, author, published, genre, grade);
+                Book book = new Book(isbn, title, authors, published, genre, grade);
                 books.add(book);
             }
         } catch (MongoException e) {
