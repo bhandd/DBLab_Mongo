@@ -13,6 +13,7 @@ import dblab.dblab_mongo.model.exceptions.BooksDbException;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.regex.Pattern;
 
@@ -213,10 +214,9 @@ public class BooksDb implements BooksDbInterface {
                 List<Author> authors = new ArrayList<>();
                 for (Document authorDoc : authorDocuments) {
                     String authorName = authorDoc.getString("name");
-                    Integer ageInteger = authorDoc.getInteger("age");
-                    int age = (ageInteger != null) ? ageInteger.intValue() : 0;
-                    // Create Author object
-                    Author author = new Author(age, authorName);
+                    System.out.println(authorName);
+                    Date birthdate = authorDoc.getDate("birthdate");
+                    Author author = new Author(authorName, birthdate);
                     authors.add(author);
                 }
 

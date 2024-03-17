@@ -1,17 +1,20 @@
 package dblab.dblab_mongo.model.entityClasses;
 
+import java.util.Date;
+
 public class Author {
 
-   private int age;
+  // private int age;
    private String fullName;
+   private Date birthdate;
 
    //private String lName;
 /** Constructor for the Authors-class
  *
  * */
 //TODO: check if we need a fName and lName string or if a fullName will suffice
-   public Author(int age, String fullName/*String lName*/) {
-      this.age = age;
+   public Author( String fullName, Date birthdate/*String lName*/) {
+      this.birthdate = birthdate;
       this.fullName = fullName;
     //  this.lName = lName;
    }
@@ -20,12 +23,12 @@ public class Author {
       this.fullName = "";
    }
 
-   public int getAge() {
-      return age;
+   public Date getAge() {
+      return birthdate;
    }
 
-   public void setAge(int age) {
-      this.age = age;
+   public void setAge(Date birthdate) {
+      this.birthdate = birthdate;
    }
 
    public String getFullName() {
@@ -51,7 +54,7 @@ public class Author {
    @Override
    public String toString() {
       return "Author{" +
-              "id=" + age +
+              "id=" + birthdate +
               ", fName='" + fullName + '\'' +
               '}';
    }
