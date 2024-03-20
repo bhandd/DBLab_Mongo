@@ -237,13 +237,14 @@ try {
 
                 String published = document.getString("published");
                 String genre = document.getString("genre");
-                String grade = document.getString("grade"); // Uncomment if needed
+                String grade = document.getString("grade");
 
                 // Create a new Book object for each retrieved document
                 Book book = new Book(isbn, title, authors, published, genre, grade);
                 books.add(book);
             }
         } catch (Exception e) {
+           // throw  e;
             throw new BooksDbException(e.getMessage());
         }
 
