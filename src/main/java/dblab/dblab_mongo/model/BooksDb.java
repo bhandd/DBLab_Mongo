@@ -243,7 +243,7 @@ try {
                 Book book = new Book(isbn, title, authors, published, genre, grade);
                 books.add(book);
             }
-        } catch (MongoException e) {
+        } catch (Exception e) {
             throw new BooksDbException(e.getMessage());
         }
 

@@ -4,12 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e29717e6-9367-41e6-afea-5ec6f05f9397" name="Changes" comment="Added checks for field">
+    <list default="true" id="e29717e6-9367-41e6-afea-5ec6f05f9397" name="Changes" comment="Author; changed from Date to LocalDate. updated getBookList(), now fetches a String from DB and parses it to LocalDate">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/Main.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/BooksDb.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/BooksDb.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/entityClasses/Author.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/entityClasses/Author.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/entityClasses/Book.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/model/entityClasses/Book.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/view/Controller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/dblab/dblab_mongo/view/Controller.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -17,6 +15,11 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="main" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="UPDATE_TYPE" value="REBASE" />
   </component>
@@ -42,7 +45,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "update-of-DB-and-getBookList",
     "ignore.virus.scanning.warn.message": "true",
     "last_opened_file_path": "C:/Users/bjorn/DBLab_Mongo/src/main/java/dblab/dblab_mongo",
     "node.js.detected.package.eslint": "true",
@@ -270,6 +273,7 @@
     <MESSAGE value="updateGrade()-COMPLETED (besides from case insensitive search)" />
     <MESSAGE value="search from menu updated; Title, author, ISBN cancel-button fixed" />
     <MESSAGE value="Added checks for field" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added checks for field" />
+    <MESSAGE value="Author; changed from Date to LocalDate. updated getBookList(), now fetches a String from DB and parses it to LocalDate" />
+    <option name="LAST_COMMIT_MESSAGE" value="Author; changed from Date to LocalDate. updated getBookList(), now fetches a String from DB and parses it to LocalDate" />
   </component>
 </project>

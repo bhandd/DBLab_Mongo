@@ -122,7 +122,7 @@ public class Controller  {
             //  books = booksDb.getBookList();
                 booksView.displayBooks(booksDb.getBookList());
             } catch (BooksDbException e) {
-                System.err.println("error: " + e.getMessage());
+                BooksPaneView.showAlertAndWait(e.getMessage(), ERROR);
             }
         }
     };
