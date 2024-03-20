@@ -12,9 +12,13 @@ import dblab.dblab_mongo.model.entityClasses.Book;
 import dblab.dblab_mongo.model.exceptions.BooksDbException;
 import org.bson.Document;
 import org.bson.types.ObjectId;
+
+import java.lang.reflect.InvocationTargetException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 import java.util.regex.Pattern;
 
 import static com.mongodb.client.model.Filters.eq;
@@ -48,7 +52,12 @@ public class BooksDb implements BooksDbInterface {
      * @throws BooksDbException if an error occurs during database interaction.
      */
     public void disconnect() throws BooksDbException {
-        EndConnection();
+        try{
+            EndConnection();
+        }catch (MongoException e){
+            throw new BooksDbException(e.getMessage());
+        }
+
     }
 
 
@@ -81,10 +90,14 @@ public class BooksDb implements BooksDbInterface {
      *
      * */
     @Override
-    public void EndConnection() throws MongoException {
+    public void EndConnection() throws BooksDbException {
+try {
+    mongoClient.close();
+    System.out.println("Connection closed.");
+}catch (Exception e){
+    throw new BooksDbException(e.getMessage());
+}
 
-        mongoClient.close();
-        System.out.println("Connection closed.");
     }
 
 
@@ -215,14 +228,16 @@ public class BooksDb implements BooksDbInterface {
                 for (Document authorDoc : authorDocuments) {
                     String authorName = authorDoc.getString("name");
                     System.out.println(authorName);
-                    Date birthdate = authorDoc.getDate("birthdate");
+                  //  LocalDate birthDate = authorDoc.getDate("birthdate"); //gamla sättet
+                    String birthDateString = authorDoc.getString("birthdate");
+                    LocalDate birthdate = LocalDate.parse(birthDateString);
                     Author author = new Author(authorName, birthdate);
                     authors.add(author);
                 }
 
                 String published = document.getString("published");
                 String genre = document.getString("genre");
-                String grade = "2";//document.getString("grade"); // Uncomment if needed
+                String grade = document.getString("grade"); // Uncomment if needed
 
                 // Create a new Book object for each retrieved document
                 Book book = new Book(isbn, title, authors, published, genre, grade);
@@ -440,13 +455,12 @@ public class BooksDb implements BooksDbInterface {
             Document document = collection.findOneAndDelete(eq("title", title));
 
 
-            ObjectId id = document.getObjectId("_id"); // id
+           // ObjectId id = document.getObjectId("_id"); // id
             String isbn = document.getString("isbn");
             String deletedTitle = document.getString("title");
             String author = document.getString("author");
-            System.out.println("Deleted document with id:" + id
+            System.out.println("Deleted document with title:" + title
                     +"\n ISBN: " + isbn
-                    +"\n Title: " + deletedTitle
                     +"\n Author: " + author);
 
         } catch (RuntimeException e) {

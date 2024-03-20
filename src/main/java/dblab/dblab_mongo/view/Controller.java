@@ -291,12 +291,15 @@ public class Controller  {
                             gradeField.setText("");
                         });
                     } catch (BooksDbException e) {
-                        throw new RuntimeException(e);
+                        BooksPaneView.showAlertAndWait(e.getMessage(), ERROR);//TODO: anropa för övriga exceptions?
                     }
                 }).start();
             }
         }
     };
+
+
+
 
     /**
      * Event handler for deleting a book from the database.
@@ -495,7 +498,7 @@ public class Controller  {
             try {
                 booksDb.EndConnection();
             } catch (BooksDbException e) {
-                throw new RuntimeException(e);
+                BooksPaneView.showAlertAndWait(e.getMessage(), ERROR);
             }
         }
     };

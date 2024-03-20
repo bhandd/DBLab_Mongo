@@ -62,20 +62,20 @@ public class BooksPaneView extends VBox {
      * @param msg the message
      * @param type types: INFORMATION, WARNING et c.
      */
-    protected void showAlertAndWait(String msg, Alert.AlertType type) {
+    protected static void showAlertAndWait(String msg, Alert.AlertType type) {
         // types: INFORMATION, WARNING et c.
         Alert alert = new Alert(type, msg);
         alert.showAndWait();
     }
 
 
-    //TODO: kolla vilka metoder som går att flytta till model
     private void init(Controller controller) {
 
         booksInTable = FXCollections.observableArrayList();
 
         // init views and event handlers
         initBooksTable();
+
         initSearchView(controller);
         initMenus(controller);
 
@@ -98,20 +98,23 @@ public class BooksPaneView extends VBox {
         booksTable.setEditable(false); // don't allow user updates (yet)
         booksTable.setPlaceholder(new Label("No rows to display"));
 
+
         // define columns
-        TableColumn<Book, Integer> idCol = new TableColumn<>("Book ID"); //TODO:behövs?
+      //  TableColumn<Book, Integer> idCol = new TableColumn<>("Book ID"); //TODO:behövs?
         TableColumn<Book, String> isbnCol = new TableColumn<>("ISBN");
         TableColumn<Book, String> titleCol = new TableColumn<>("Title");
         //   TableColumn<Book, List<Author>> authorCol = new TableColumn<>("Author"); //more than 1 author
         TableColumn<Book, String> authorCol = new TableColumn<>("Author"); //one author
+        authorCol.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.5));
+
         TableColumn<Book, Date> publishedCol = new TableColumn<>("Published");
         TableColumn<Book, String> genreCol = new TableColumn<>("Genre");
         TableColumn<Book, Integer> gradeCol = new TableColumn<>("Grade");
+
         //  TableColumn<Book, Integer> pagesCol = new TableColumn<>("Pages");
         //  TableColumn<Book, String> languageCol = new TableColumn<>("Language");
 
-        //TODO: add idCol, authorCol and gradeCol,,publishedCol , languageCol, genreCol(pages col can probably be omitted
-        booksTable.getColumns().addAll(idCol, isbnCol, authorCol, titleCol, publishedCol, genreCol, gradeCol );
+        booksTable.getColumns().addAll(isbnCol, authorCol, titleCol, publishedCol, genreCol, gradeCol );
         // give title column some extra space
         titleCol.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.5));
 
