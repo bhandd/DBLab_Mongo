@@ -80,6 +80,7 @@ public class Controller  {
                         "Enter a search string!", WARNING);
             }
         } catch (Exception e) {
+            System.out.println(e.getMessage()+ "onSearchSelected");
             booksView.showAlertAndWait("Database error.", ERROR);
         }
     }

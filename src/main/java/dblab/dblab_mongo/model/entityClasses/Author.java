@@ -19,9 +19,14 @@ public class Author {
       this.fullName = fullName;
     //  this.lName = lName;
    }
+   public Author(String fullName){
+      this.fullName = fullName;
+      this.birthdate = LocalDate.now();
+   }
 
    public Author() {
       this.fullName = "";
+      this.birthdate = LocalDate.now();
    }
 
    public LocalDate getAge() {

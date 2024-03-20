@@ -245,6 +245,7 @@ try {
             }
         } catch (Exception e) {
            // throw  e;
+            System.out.println(e.getMessage());
             throw new BooksDbException(e.getMessage());
         }
 
@@ -278,7 +279,25 @@ try {
             for (Document document : documents) {
                 String isbn = document.getString("isbn");
                 String title = document.getString("title");
-                List<Author> authors = document.getList("authors", Author.class);
+                System.out.println(title);
+               // List<Document> authors = document.getList("authors", Document.class);
+               // List<Author> authorDocuments = document.getList("authors", Author.class);
+
+                // Retrieve list of authors as Document objects
+                List<Document> authorDocuments = document.getList("authors", Document.class);
+
+                // Map each author document to Author object
+                List<Author> authors = new ArrayList<>();
+                for (Document authorDoc : authorDocuments) {
+                    String authorName = authorDoc.getString("name");
+                    System.out.println(authorName);
+                    //  LocalDate birthDate = authorDoc.getDate("birthdate"); //gamla sättet
+                    String birthDateString = authorDoc.getString("birthdate");
+                    LocalDate birthdate = LocalDate.parse(birthDateString);
+                    Author author = new Author(authorName, birthdate);
+                    authors.add(author);
+                }
+
                 String published = document.getString("published");
                 String genre = document.getString("genre");
                 String grade = document.getString("grade");
@@ -286,7 +305,9 @@ try {
                 books.add(book);
             }
         } catch (MongoException e) {
+            System.out.println(e.getMessage() + "searchBookByTitle");
             throw new BooksDbException(e.getMessage());
+
         }
         return books;
     }
@@ -312,9 +333,7 @@ try {
             MongoDatabase database = mongoClient.getDatabase("Library");
 
             MongoCollection<Document> collection = database.getCollection("Books");
-
             Pattern regexPattern = Pattern.compile(searchFor, Pattern.CASE_INSENSITIVE);
-
             Document query = new Document("isbn", regexPattern);
 
             FindIterable<Document> documents = collection.find(query);
@@ -322,7 +341,21 @@ try {
             for (Document document : documents) {
                 String isbn = document.getString("isbn");
                 String title = document.getString("title");
-                List<Author> authors = document.getList("authors", Author.class);
+              //  List<Author> authors = document.getList("authors", Author.class);
+                // Retrieve list of authors as Document objects
+                List<Document> authorDocuments = document.getList("authors", Document.class);
+
+                // Map each author document to Author object
+                List<Author> authors = new ArrayList<>();
+                for (Document authorDoc : authorDocuments) {
+                    String authorName = authorDoc.getString("name");
+                    System.out.println(authorName);
+                    //  LocalDate birthDate = authorDoc.getDate("birthdate"); //gamla sättet
+                    String birthDateString = authorDoc.getString("birthdate");
+                    LocalDate birthdate = LocalDate.parse(birthDateString);
+                    Author author = new Author(authorName, birthdate);
+                    authors.add(author);
+                }
                 String published = document.getString("published");
                 String genre = document.getString("genre");
                 String grade = document.getString("grade");
@@ -355,13 +388,30 @@ try {
             MongoCollection<Document> collection = database.getCollection("Books");
 
             Pattern regexPattern = Pattern.compile(searchFor, Pattern.CASE_INSENSITIVE);
-            Document query = new Document("author", regexPattern);
+            //Document query = new Document("author", regexPattern);
+            Document query = new Document("authors", new Document("$elemMatch", new Document("name", regexPattern)));
             FindIterable<Document> documents = collection.find(query);
 
             for (Document document : documents) {
                 String isbn = document.getString("isbn");
                 String title = document.getString("title");
-                List<Author> authors = document.getList("authors", Author.class);
+               // List<Author> authors = document.getList("authors", Author.class);
+
+                // Retrieve list of authors as Document objects
+                List<Document> authorDocuments = document.getList("authors", Document.class);
+
+                // Map each author document to Author object
+                List<Author> authors = new ArrayList<>();
+                for (Document authorDoc : authorDocuments) {
+                    String authorName = authorDoc.getString("name");
+                    System.out.println(authorName);
+                    //  LocalDate birthDate = authorDoc.getDate("birthdate"); //gamla sättet
+                    String birthDateString = authorDoc.getString("birthdate");
+                    LocalDate birthdate = LocalDate.parse(birthDateString);
+                    Author author = new Author(authorName, birthdate);
+                    authors.add(author);
+                }
+
                 String published = document.getString("published");
                 String genre = document.getString("genre");
                 String grade = document.getString("grade");
