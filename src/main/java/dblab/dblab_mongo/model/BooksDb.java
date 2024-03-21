@@ -14,6 +14,7 @@ import org.bson.Document;
 import org.bson.types.ObjectId;
 
 import java.lang.reflect.InvocationTargetException;
+import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
@@ -471,10 +472,15 @@ try {
             //TODO: Gör mongoClient och collection till globala variabler?
             MongoDatabase database = mongoClient.getDatabase("Library");
             MongoCollection<Document> collection = database.getCollection("Books");
-
+            String pattern = "yyyy-MM-dd";
+            SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+            List<Document> authorDocuments = new ArrayList<>();
+            String date = simpleDateFormat.format(new Date());
+            System.out.println(date);
+            authorDocuments.add(new Document("name",fullName).append("birthdate", date));
             Document document = new Document("isbn", isbn)
                             .append("title", title)
-                            .append("author", fullName)
+                            .append("authors", authorDocuments)
                             .append("published", publish)
                             .append("genre", genre)
                             .append("grade", grade);
