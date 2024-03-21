@@ -1,10 +1,5 @@
 package dblab.dblab_mongo.view;
 
-//import se.kth.anderslm.booksdb.model.Book;
-//import se.kth.anderslm.booksdb.model.BooksDbInterface;
-//import se.kth.anderslm.booksdb.model.SearchMode;
-
-
 import dblab.dblab_mongo.model.entityClasses.Book;
 import dblab.dblab_mongo.model.entityClasses.Genre;
 import dblab.dblab_mongo.model.exceptions.BooksDbException;
@@ -18,8 +13,6 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
-
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -27,7 +20,7 @@ import java.util.Optional;
 import static javafx.scene.control.Alert.AlertType.*;
 
 //TODO: check interaction between controller and BooksDB so that it goes trough the interface
-//TODO: Doublecheck that there are no SQL-queries in the controller
+
 /**
  * The controller is responsible for handling user requests and update the view
  * (and in some cases the model).
@@ -43,8 +36,6 @@ public class Controller  {
         this.booksView = booksView;
     }
 
-
-    //Ta bort joins där de inte behövds
     /**
      * Handles a search operation based on the specified search criteria and mode.
      *
@@ -55,7 +46,7 @@ public class Controller  {
 
         try {
             if (searchFor != null && searchFor.length() > 1) {
-                List<Book> result = new ArrayList<>();
+                List<Book> result;// = new ArrayList<>();
                 switch (mode) {
                     case Title:
                         result = booksDb.searchBookByTitle(searchFor);
@@ -90,16 +81,13 @@ public class Controller  {
      * <p>
      * Attempts to establish a connection to the database using the {@link BooksDb} instance.
      * </p>
-     *
-     * @param actionEvent The event triggered by the connect action.
-     * @throws RuntimeException If an exception occurs during the database connection process.
      */
     public EventHandler<ActionEvent> connectHandler = new EventHandler<ActionEvent>() {
         @Override
         public void handle(ActionEvent actionEvent) {
             try {
-               // booksDb.connect();
-                booksDb.startConnection();
+                booksDb.connect();
+                //booksDb.startConnection();
             } catch (BooksDbException e) {
                 BooksPaneView.showAlertAndWait(e.getMessage(), ERROR);
             }
@@ -108,20 +96,11 @@ public class Controller  {
 
     /**
      * Event handler for displaying books from the database.
-     * <p>
-     * Retrieves books from the database using a specific SQL query and displays them using the BooksView.
-     * </p>
-     *
-     * @param actionEvent The event triggered by the show books action.
-     * @throws RuntimeException If an SQL exception occurs during the process of querying and displaying books.
-     */
-    public EventHandler<ActionEvent> showBooksInDB = new EventHandler<ActionEvent>() {
+     * */
+    public EventHandler<ActionEvent> showBooksInDB = new EventHandler<>() {
         @Override
         public void handle(ActionEvent actionEvent) {
-
-            List<Book> books = new ArrayList<>();
             try {
-            //  books = booksDb.getBookList();
                 booksView.displayBooks(booksDb.getBookList());
             } catch (BooksDbException e) {
                 BooksPaneView.showAlertAndWait(e.getMessage(), ERROR);
@@ -135,9 +114,7 @@ public class Controller  {
      * Displays a dialog prompting the user to enter details for a new book, and then adds the book to the database.
      * The database operation is performed in a separate thread to prevent blocking the UI.
      * </p>
-     *
-     * @param actionEvent The event triggered by the add book action.
-     */
+*/
     public EventHandler<ActionEvent> addBookDB = new EventHandler<ActionEvent>() {
         Alert alert = new Alert(CONFIRMATION);
 
@@ -237,10 +214,8 @@ public class Controller  {
      * Displays a dialog prompting the user to enter the title of the book and the new grade.
      * The database operation to update the grade is performed in a separate thread to prevent blocking the UI.
      * </p>
-     *
-     * @param actionEvent The event triggered by the update book action.
-     */
-    public EventHandler<ActionEvent> updateBookDB = new EventHandler<ActionEvent>() {
+*/
+    public EventHandler<ActionEvent> updateBookDB = new EventHandler<>() {
         // String gradeValue = "2";
         Alert alert = new Alert(CONFIRMATION);
         String gradeValue = null;
@@ -309,10 +284,8 @@ public class Controller  {
      * Displays a dialog prompting the user to enter the title of the book to be deleted.
      * The database operation to delete the book is performed in a separate thread to prevent blocking the UI.
      * </p>
-     *
-     * @param actionEvent The event triggered by the delete book action.
-     */
-    public EventHandler<ActionEvent> deleteBookDB = new EventHandler<ActionEvent>() {
+*/
+    public EventHandler<ActionEvent> deleteBookDB = new EventHandler<>() {
         private TextField titleField = new TextField();
 
         private Alert alert = new Alert(CONFIRMATION);
@@ -359,9 +332,7 @@ public class Controller  {
      * Displays a dialog prompting the user to enter the title of the book to be searched.
      * The search operation is performed in a separate thread to prevent blocking the UI.
      * </p>
-     *
-     * @param actionEvent The event triggered by the title search action.
-     */
+*/
     public EventHandler<ActionEvent> TitleSearch = new EventHandler<ActionEvent>() {
         private TextField titleField = new TextField();
 
@@ -402,10 +373,8 @@ public class Controller  {
      * Displays a dialog prompting the user to enter the ISBN of the book to be searched.
      * The search operation is performed in a separate thread to prevent blocking the UI.
      * </p>
-     *
-     * @param actionEvent The event triggered by the ISBN search action.
-     */
-    public EventHandler<ActionEvent> ISBNSearch = new EventHandler<ActionEvent>() {
+ */
+    public EventHandler<ActionEvent> ISBNSearch = new EventHandler<>() {
         private TextField ISBNField = new TextField();
 
         private Alert alert = new Alert(CONFIRMATION);
@@ -445,10 +414,8 @@ public class Controller  {
      * Displays a dialog prompting the user to enter the author's name to perform a search.
      * The search operation is performed in a separate thread to prevent blocking the UI.
      * </p>
-     *
-     * @param actionEvent The event triggered by the author search action.
-     */
-    public EventHandler<ActionEvent> AuthorSearch = new EventHandler<ActionEvent>() {
+*/
+    public EventHandler<ActionEvent> AuthorSearch = new EventHandler<>() {
         private TextField authorField = new TextField();
 
         private Alert alert = new Alert(CONFIRMATION);
@@ -486,13 +453,11 @@ public class Controller  {
      * Event handler for ending the database connection.
      * <p>
      * This handler is responsible for disconnecting from the database.
-     * It catches potential exceptions such as SQLException and BooksDbException,
+     * It catches potential exceptions such as and BooksDbException,
      * then wraps them in a RuntimeException for simplified error handling.
      * </p>
-     *
-     * @param actionEvent The event triggered by the end connection action.
-     */
-    public EventHandler<ActionEvent> endConnectHandler = new EventHandler<ActionEvent>() {
+*/
+    public EventHandler<ActionEvent> endConnectHandler = new EventHandler<>() {
 
 
         @Override

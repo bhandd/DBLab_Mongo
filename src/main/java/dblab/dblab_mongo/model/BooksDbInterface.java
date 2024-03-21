@@ -1,4 +1,5 @@
 package dblab.dblab_mongo.model;
+import com.mongodb.client.MongoClient;
 import dblab.dblab_mongo.model.entityClasses.Book;
 import dblab.dblab_mongo.model.exceptions.BooksDbException;
 import java.util.List;
@@ -24,6 +25,7 @@ public interface BooksDbInterface {
      * @return true on successful connection.
      */
     public boolean connect() throws BooksDbException;
+    public MongoClient startConnection() throws BooksDbException;
     public void updateGrade(/*int grade*/String grade, String title)throws BooksDbException;
 
     public void deleteBook(String title) throws BooksDbException;

@@ -33,7 +33,7 @@ import static com.mongodb.client.model.Filters.eq;
 public class BooksDb implements BooksDbInterface {
 
 
-    private static MongoClient mongoClient = null; //TODO: check if needed here
+    private static MongoClient mongoClient = null;
 
     /**
      * A class that represents a connection to a database.
@@ -69,8 +69,9 @@ public class BooksDb implements BooksDbInterface {
 
         try {
           //  MongoClient mongoClient;
-            MongoDatabase mongoDb;
+         //   MongoDatabase mongoDb;
             mongoClient = MongoClients.create("mongodb://localhost:27017");
+
             System.out.println("Yes");
             return mongoClient;
         }  catch (MongoException e) {
@@ -81,9 +82,10 @@ public class BooksDb implements BooksDbInterface {
     }
 
 
+
+
+
     /**End the connection to the database
-     *
-     *
      * */
     @Override
     public void EndConnection() throws BooksDbException {
@@ -99,7 +101,6 @@ public class BooksDb implements BooksDbInterface {
 
 
 /**Fetches an authors name from the DB based on author-id.
- *
  * returns Author with a name if author is found.
  * returns null, if no author is found
  * */
@@ -161,92 +162,58 @@ public class BooksDb implements BooksDbInterface {
     }
 
 
-    /**
-     * Retrieves a list of all books from the database and returns them as a {@code List<Book>} object.
-     *
-     * @return A list of all books in the database, or an empty list if there are no books.
-     * @throws BooksDbException If there is an error retrieving the books from the database.
-     */
-    /*@Override
-    public List<Book> getBookList() throws BooksDbException{
-
-        List<Book> books = new ArrayList<>();
-
-        String connectionString = "mongodb://localhost:27017";
-
-        try  {
-
-            MongoDatabase database = mongoClient.getDatabase("Library");
-
-            MongoCollection<Document> collection = database.getCollection("Books");
-
-            FindIterable<Document> documents = collection.find();
-
-            for (Document document : documents) {
-                // Retrieve book attributes from the document
-                String isbn = document.getString("isbn");
-                String title = document.getString("title");
-                String author = document.getString("author");
-                String published = document.getString("published");
-                String genre = document.getString("genre");
-                String grade = document.getString("grade"); // Uncomment if needed
-
-                Book book = new Book(isbn, title, author, published, genre, grade);
-                books.add(book);
-            }
-        } catch (MongoException e) {
-            throw new BooksDbException(e.getMessage());
-        }
-
-        return books;
-    }*/
-
     @Override
     public List<Book> getBookList() throws BooksDbException {
-        List<Book> books = new ArrayList<>();
+        if(connect()){
+            List<Book> books = new ArrayList<>();
 
-        String connectionString = "mongodb://localhost:27017";
+            //    String connectionString = "mongodb://localhost:27017";
 
-        try {
-            MongoDatabase database = mongoClient.getDatabase("Library");
-            MongoCollection<Document> collection = database.getCollection("Books");
+            try {
+                MongoDatabase database = mongoClient.getDatabase("Library");
+                MongoCollection<Document> collection = database.getCollection("Books");
 
-            FindIterable<Document> documents = collection.find();
+                FindIterable<Document> documents = collection.find();
 
-            for (Document document : documents) {
-                String isbn = document.getString("isbn");
-                String title = document.getString("title");
+                for (Document document : documents) {
+                    String isbn = document.getString("isbn");
+                    String title = document.getString("title");
 
-                // Retrieve list of authors as Document objects
-                List<Document> authorDocuments = document.getList("authors", Document.class);
+                    // Retrieve list of authors as Document objects
+                    List<Document> authorDocuments = document.getList("authors", Document.class);
 
-                // Map each author document to Author object
-                List<Author> authors = new ArrayList<>();
-                for (Document authorDoc : authorDocuments) {
-                    String authorName = authorDoc.getString("name");
-                    System.out.println(authorName);
-                  //  LocalDate birthDate = authorDoc.getDate("birthdate"); //gamla sättet
-                    String birthDateString = authorDoc.getString("birthdate");
-                    LocalDate birthdate = LocalDate.parse(birthDateString);
-                    Author author = new Author(authorName, birthdate);
-                    authors.add(author);
+                    // Map each author document to Author object
+                    List<Author> authors = new ArrayList<>();
+                    for (Document authorDoc : authorDocuments) {
+                        String authorName = authorDoc.getString("name");
+                        System.out.println(authorName);
+                        //  LocalDate birthDate = authorDoc.getDate("birthdate"); //gamla sättet
+                        String birthDateString = authorDoc.getString("birthdate");
+                        LocalDate birthdate = LocalDate.parse(birthDateString);
+                        Author author = new Author(authorName, birthdate);
+                        authors.add(author);
+                    }
+
+                    String published = document.getString("published");
+                    String genre = document.getString("genre");
+                    String grade = document.getString("grade");
+
+                    // Create a new Book object for each retrieved document
+                    Book book = new Book(isbn, title, authors, published, genre, grade);
+                    books.add(book);
                 }
-
-                String published = document.getString("published");
-                String genre = document.getString("genre");
-                String grade = document.getString("grade");
-
-                // Create a new Book object for each retrieved document
-                Book book = new Book(isbn, title, authors, published, genre, grade);
-                books.add(book);
+            } catch (Exception e) {
+                // throw  e;
+                System.out.println(e.getMessage());
+                throw new BooksDbException(e.getMessage());
             }
-        } catch (Exception e) {
-           // throw  e;
-            System.out.println(e.getMessage());
-            throw new BooksDbException(e.getMessage());
+
+            return books;
+
+        }else{
+            throw new BooksDbException("No connection to DB");
         }
 
-        return books;
     }
 
 
@@ -444,7 +411,7 @@ public class BooksDb implements BooksDbInterface {
          Document updatedDoc = collection.findOneAndUpdate(query, update);
             System.out.println("updated the document: " + updatedDoc);
             }catch(MongoException e){
-            throw new BooksDbException(e.toString()); //TODO:rätt?
+            throw new BooksDbException(e.toString());
             }
 
     }
@@ -465,7 +432,6 @@ public class BooksDb implements BooksDbInterface {
         //String testGrade = grade;
 
         try {
-            //TODO: Gör mongoClient och collection till globala variabler?
             MongoDatabase database = mongoClient.getDatabase("Library");
             MongoCollection<Document> collection = database.getCollection("Books");
             String pattern = "yyyy-MM-dd";
