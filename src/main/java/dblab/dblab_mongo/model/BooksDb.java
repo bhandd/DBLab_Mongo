@@ -128,13 +128,12 @@ public class BooksDb implements BooksDbInterface {
 
 
     /**Fetches an authors name from the DB based on author-id.
-     *
      * returns Author with a name if author is found.
      * returns null, if no author is found
      * */
 
     private String getAuthorIdByName(String id) throws BooksDbException{
-        Author author = new Author();
+     //   Author author = new Author();
         try  {
             MongoDatabase database = mongoClient.getDatabase("Library");
             MongoCollection<Document> collection = database.getCollection("Author");
@@ -143,7 +142,7 @@ public class BooksDb implements BooksDbInterface {
 
             Document document = documents.first();
             if(document != null){
-                String authorId = document.getString("id");
+                String authorId = document.getString("id_");
 
                 return authorId;
             }else {
@@ -473,14 +472,17 @@ public class BooksDb implements BooksDbInterface {
             MongoCollection<Document> collection = database.getCollection("Books");
             Document document = collection.findOneAndDelete(eq("title", title));
 
+            //TODO:delete
+//           ObjectId id = document.getObjectId("_id"); // id
+//
+//                String isbn = document.getString("isbn");
+//                String deletedTitle = document.getString("title");
+//                String author = document.getString("author");
+//                System.out.println("Deleted document with title:" + deletedTitle
+//                        +"\n ISBN: " + isbn
+//                        +"\n Author: " + author);
 
-           // ObjectId id = document.getObjectId("_id"); // id
-            String isbn = document.getString("isbn");
-            String deletedTitle = document.getString("title");
-            String author = document.getString("author");
-            System.out.println("Deleted document with title:" + title
-                    +"\n ISBN: " + isbn
-                    +"\n Author: " + author);
+
 
         } catch (RuntimeException e) {
            throw new BooksDbException(e.getMessage());
