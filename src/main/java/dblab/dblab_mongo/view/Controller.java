@@ -98,9 +98,10 @@ public class Controller  {
         @Override
         public void handle(ActionEvent actionEvent) {
             try {
-                booksDb.connect();
-            } catch (Exception e) {
-                throw new RuntimeException(e);
+               // booksDb.connect();
+                booksDb.startConnection();
+            } catch (BooksDbException e) {
+                BooksPaneView.showAlertAndWait(e.getMessage(), ERROR);
             }
         }
     };

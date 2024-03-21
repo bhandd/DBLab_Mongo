@@ -23,7 +23,7 @@ public interface BooksDbInterface {
      *
      * @return true on successful connection.
      */
-    public boolean connect() throws Exception;
+    public boolean connect() throws BooksDbException;
     public void updateGrade(/*int grade*/String grade, String title)throws BooksDbException;
 
     public void deleteBook(String title) throws BooksDbException;

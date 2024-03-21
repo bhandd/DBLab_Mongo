@@ -6,6 +6,7 @@ module dblab.dblab_mongo {
     requires org.mongodb.driver.core;
     requires org.mongodb.bson;
     requires slf4j.api;
+    requires java.desktop;
 
     // Open the package containing the Book class to the JavaFX modules
     opens dblab.dblab_mongo.model.entityClasses to javafx.base, javafx.fxml;

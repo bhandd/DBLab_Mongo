@@ -13,17 +13,14 @@ import dblab.dblab_mongo.model.exceptions.BooksDbException;
 import org.bson.Document;
 import org.bson.types.ObjectId;
 
-import java.lang.reflect.InvocationTargetException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Locale;
 import java.util.regex.Pattern;
 
 import static com.mongodb.client.model.Filters.eq;
-import static java.lang.String.*;
 
 /**
  * A mock implementation of the BooksDBInterface interface to demonstrate how to
@@ -37,15 +34,15 @@ public class BooksDb implements BooksDbInterface {
 
 
     private static MongoClient mongoClient = null; //TODO: check if needed here
- //   private static MongoDatabase mongoDb;
+
     /**
      * A class that represents a connection to a database.
      *
      *
      */
     @Override
-    public boolean connect() throws Exception {
-        return StartConnection() != null;
+    public boolean connect() throws BooksDbException {
+        return startConnection() != null;
     }
 
     /**
@@ -68,37 +65,36 @@ public class BooksDb implements BooksDbInterface {
      * @throws Exception If there is an error connecting to the database.
      * @return The connection to the database.
      */
-    public static MongoClient StartConnection() throws Exception {
+    public MongoClient startConnection() throws BooksDbException {
 
         try {
           //  MongoClient mongoClient;
             MongoDatabase mongoDb;
             mongoClient = MongoClients.create("mongodb://localhost:27017");
-            //TODO: för test, ta bort sen
-            mongoDb = mongoClient.getDatabase("Library");
             System.out.println("Yes");
             return mongoClient;
         }  catch (MongoException e) {
             System.err.println("Connection failed. Error message: " + e.getMessage());
-            e.printStackTrace();
+           // throw new BooksDbException(e.getMessage());
             return null;
         }
     }
 
-//TODO: try-catch-block här?
+
     /**End the connection to the database
      *
      *
      * */
     @Override
     public void EndConnection() throws BooksDbException {
-try {
-    mongoClient.close();
-    System.out.println("Connection closed.");
-}catch (Exception e){
-    throw new BooksDbException(e.getMessage());
-}
-
+        if(mongoClient != null){
+            try {
+                mongoClient.close();
+                System.out.println("Connection closed.");
+            }catch (Exception e){
+                throw new BooksDbException(e.getMessage());
+            }
+        }
     }
 
 
