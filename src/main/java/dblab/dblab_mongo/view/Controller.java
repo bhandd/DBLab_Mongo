@@ -19,8 +19,6 @@ import java.util.Optional;
 
 import static javafx.scene.control.Alert.AlertType.*;
 
-//TODO: check interaction between controller and BooksDB so that it goes trough the interface
-
 /**
  * The controller is responsible for handling user requests and update the view
  * (and in some cases the model).
@@ -268,7 +266,7 @@ public class Controller  {
                             gradeField.setText("");
                         });
                     } catch (BooksDbException e) {
-                        BooksPaneView.showAlertAndWait(e.getMessage(), ERROR);//TODO: anropa för övriga exceptions?
+                        BooksPaneView.showAlertAndWait(e.getMessage(), ERROR);
                     }
                 }).start();
             }

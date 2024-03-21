@@ -153,7 +153,7 @@ public class BooksDb implements BooksDbInterface {
         }
     }
 
-    //TODO: check if needed
+
 /** get a connection
  * */
     public static MongoClient getConnection() {
@@ -471,18 +471,6 @@ public class BooksDb implements BooksDbInterface {
             MongoDatabase database = mongoClient.getDatabase("Library");
             MongoCollection<Document> collection = database.getCollection("Books");
             Document document = collection.findOneAndDelete(eq("title", title));
-
-            //TODO:delete
-//           ObjectId id = document.getObjectId("_id"); // id
-//
-//                String isbn = document.getString("isbn");
-//                String deletedTitle = document.getString("title");
-//                String author = document.getString("author");
-//                System.out.println("Deleted document with title:" + deletedTitle
-//                        +"\n ISBN: " + isbn
-//                        +"\n Author: " + author);
-
-
 
         } catch (RuntimeException e) {
            throw new BooksDbException(e.getMessage());
