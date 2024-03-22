@@ -180,7 +180,7 @@ public class BooksDb implements BooksDbInterface {
                     List<Document> authorDocuments = document.getList("authors", Document.class);
 
                     // Map each author document to Author object
-                    List<Author> authors = new ArrayList<>();
+                    ArrayList<Author> authors = new ArrayList<>();
                     for (Document authorDoc : authorDocuments) {
                         String authorName = authorDoc.getString("name");
                         System.out.println(authorName);
@@ -197,6 +197,7 @@ public class BooksDb implements BooksDbInterface {
 
                     // Create a new Book object for each retrieved document
                     Book book = new Book(isbn, title, authors, published, genre, grade);
+
                     books.add(book);
                 }
             } catch (Exception e) {
@@ -248,7 +249,7 @@ public class BooksDb implements BooksDbInterface {
                 List<Document> authorDocuments = document.getList("authors", Document.class);
 
                 // Map each author document to Author object
-                List<Author> authors = new ArrayList<>();
+                ArrayList<Author> authors = new ArrayList<>();
                 for (Document authorDoc : authorDocuments) {
                     String authorName = authorDoc.getString("name");
                     System.out.println(authorName);
@@ -307,7 +308,7 @@ public class BooksDb implements BooksDbInterface {
                 List<Document> authorDocuments = document.getList("authors", Document.class);
 
                 // Map each author document to Author object
-                List<Author> authors = new ArrayList<>();
+                ArrayList<Author> authors = new ArrayList<>();
                 for (Document authorDoc : authorDocuments) {
                     String authorName = authorDoc.getString("name");
                     System.out.println(authorName);
@@ -362,7 +363,7 @@ public class BooksDb implements BooksDbInterface {
                 List<Document> authorDocuments = document.getList("authors", Document.class);
 
                 // Map each author document to Author object
-                List<Author> authors = new ArrayList<>();
+                ArrayList<Author> authors = new ArrayList<>();
                 for (Document authorDoc : authorDocuments) {
                     String authorName = authorDoc.getString("name");
                     System.out.println(authorName);

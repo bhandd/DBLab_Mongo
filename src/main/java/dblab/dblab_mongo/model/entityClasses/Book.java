@@ -22,9 +22,9 @@ public class Book {
    //  private Genre genre;
     private String genre;
 
-    private String author;
+   // private String author;
 
-     //  private ArrayList<Author> authors;
+       private ArrayList<Author> authors;
     // TODO:
     // Add authors, as a separate class(!), and corresponding methods, to your implementation
     // as well, i.e. "private ArrayList<Author> authors;"
@@ -32,13 +32,13 @@ public class Book {
     //TODO: avkommentera arraylist med authors då detta krävs för att representera relationen mellan book och author
     // avkommentera också String author som parameter i konstruktiorn
     // när detta göra behöver man anpassa implementeringen i övriga programmet
-    public Book(String isbn, String title, List<Author> author, String published, String genre, String grade) {
+    public Book(String isbn, String title, ArrayList<Author> authorList, String published, String genre, String grade) {
 
         this.isbn = isbn;
         this.title = title;
-      //  this.authors = new ArrayList<>();
-         //   this.authors.add(author.get(0));
-        this.author = author.toString();
+        this.authors = new ArrayList<>();
+            this.authors = authorList;
+       // this.author = author.toString();
         this.published = published;
        this.genre = genre;
         this.grade = grade;
@@ -87,13 +87,13 @@ public class Book {
     }
 
 
-    public String getAuthor() {
-        return author;
-    }
-
-    public void setAuthor(String author) {
-        this.author = author;
-    }
+//    public String getAuthor() {
+//        return author;
+//    }
+//
+//    public void setAuthor(String author) {
+//        this.author = author;
+//    }
 
 
     public String getGrade() {
@@ -101,9 +101,14 @@ public class Book {
     }
 
     //TODO: use with Authors list
-//    public ArrayList<Author> getAuthors() {
-//        return authors;
-//    }
+    public ArrayList<Author> getAuthors() {
+        ArrayList<Author> copy = new ArrayList<>();
+        for (int i = 0; i < authors.size(); i++){
+            copy.add(authors.get(i));
+
+        }
+        return copy;
+    }
 
 
 
@@ -133,9 +138,9 @@ public class Book {
     /**Add author to the list of authors
      *
      * */
-//    public void addAuthor(ArrayList<Author> authors) {
-//        this.authors = authors;
-//    }
+    public void addAuthor(Author author) {
+        this.authors.add(author);
+    }
 
 
 
@@ -163,12 +168,14 @@ public class Book {
 //        }
 //        return nameList;
 //}
-public String addAuthor(String name){
-    author = name;
-    return name;
-}
+
+    /**For one author*/
+//public String addAuthor(String name){
+//    author = name;
+//    return name;
+//}
     @Override
     public String toString() {
-        return isbn + ", " + title + ", "/* + getAuthorsNames(this.authors) +*/+ author + ", " +  published + ", " + genre + ", " + grade;
+        return isbn + ", " + title + ", "/* + getAuthorsNames(this.authors) +*/+ getAuthors() + ", " +  published + ", " + genre + ", " + grade;
     }
 }

@@ -2,6 +2,7 @@ package dblab.dblab_mongo.view;
 
 import dblab.dblab_mongo.model.BooksDb;
 import dblab.dblab_mongo.model.SearchMode;
+import dblab.dblab_mongo.model.entityClasses.Author;
 import dblab.dblab_mongo.model.entityClasses.Book;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -103,8 +104,8 @@ public class BooksPaneView extends VBox {
       //  TableColumn<Book, Integer> idCol = new TableColumn<>("Book ID"); //TODO:behövs?
         TableColumn<Book, String> isbnCol = new TableColumn<>("ISBN");
         TableColumn<Book, String> titleCol = new TableColumn<>("Title");
-        //   TableColumn<Book, List<Author>> authorCol = new TableColumn<>("Author"); //more than 1 author
-        TableColumn<Book, String> authorCol = new TableColumn<>("Author"); //one author
+           TableColumn<Book, List<Author>> authorCol = new TableColumn<>("Authors"); //more than 1 author
+        //TableColumn<Book, String> authorCol = new TableColumn<>("Author"); //one author
         authorCol.prefWidthProperty().bind(booksTable.widthProperty().multiply(0.5));
 
         TableColumn<Book, Date> publishedCol = new TableColumn<>("Published");
@@ -123,8 +124,8 @@ public class BooksPaneView extends VBox {
        // idCol.setCellValueFactory(new PropertyValueFactory<>("_id")); //TODO:Behövs?
         isbnCol.setCellValueFactory(new PropertyValueFactory<>("isbn"));
         titleCol.setCellValueFactory(new PropertyValueFactory<>("title"));
-        //  authorCol.setCellValueFactory(new PropertyValueFactory<>("authors")); //more than 1 author
-        authorCol.setCellValueFactory(new PropertyValueFactory<>("author")); //one author
+          authorCol.setCellValueFactory(new PropertyValueFactory<>("authors")); //more than 1 author
+       // authorCol.setCellValueFactory(new PropertyValueFactory<>("author")); //one author
         publishedCol.setCellValueFactory(new PropertyValueFactory<>("published"));
         genreCol.setCellValueFactory(new PropertyValueFactory<>("genre"));
 
