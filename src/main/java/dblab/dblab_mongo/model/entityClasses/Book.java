@@ -12,8 +12,6 @@ import java.util.List;
  * @author anderslm@kth.se
  */
 public class Book {
-    //TODO: check if all ints has to be converted to strings when displayed in
-    // the booksPaneView
 
     private String isbn; // should check format
     private String title;
@@ -97,29 +95,7 @@ public class Book {
         this.author = author;
     }
 
-    /**
-    public int getBookId() { return bookId; }
-    public String getIsbn() { return isbn; }
-    public String getTitle() { return title; }
-    public Date getPublished() { return published; }
-    public String getStoryLine() { return storyLine; }
 
-    public List<Author> getAuthors() {
-        ArrayList<Author> copy = new ArrayList<>();
-      for (int i = 0; i <authors.size(); i++){
-          copy.add(new Author(authors.get(i).getId(), authors.get(i).getFullName()));
-      }
-      return copy;
-    }
-
-public String getAuthorAtIndex(int index){
-return authors.get(index).toString();
-}
-
-    public String getGenre() {
-        return genre;
-    }
-*/
     public String getGrade() {
         return grade;
     }

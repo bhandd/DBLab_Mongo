@@ -68,8 +68,6 @@ public class BooksDb implements BooksDbInterface {
     public MongoClient startConnection() throws BooksDbException {
 
         try {
-          //  MongoClient mongoClient;
-         //   MongoDatabase mongoDb;
             mongoClient = MongoClients.create("mongodb://localhost:27017");
 
             System.out.println("Yes");
@@ -163,7 +161,7 @@ public class BooksDb implements BooksDbInterface {
 
     @Override
     public List<Book> getBookList() throws BooksDbException {
-        if(connect()){
+        if(mongoClient != null){
             List<Book> books = new ArrayList<>();
 
             //    String connectionString = "mongodb://localhost:27017";

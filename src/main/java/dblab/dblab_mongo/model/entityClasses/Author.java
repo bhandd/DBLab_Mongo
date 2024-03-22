@@ -13,7 +13,6 @@ public class Author {
 /** Constructor for the Authors-class
  *
  * */
-//TODO: check if we need a fName and lName string or if a fullName will suffice
    public Author( String fullName, LocalDate birthdate/*String lName*/) {
       this.birthdate = birthdate;
       this.fullName = fullName;
@@ -45,17 +44,6 @@ public class Author {
       this.fullName = fName;
    }
 
-   //TODO:Check if needed
-//   public String getlName() {
-//      return lName;
-//   }
-
-
-//TODO: check if needed
-
-//   public void setlName(String lName) {
-//      this.lName = lName;
-//   }
 
    @Override
    public String toString() {
