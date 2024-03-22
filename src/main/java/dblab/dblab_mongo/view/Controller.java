@@ -389,7 +389,7 @@ public class Controller  {
             grid.setHgap(5);
             grid.setVgap(5);
             grid.setPadding(new Insets(10, 10, 10, 10));
-            grid.add(new Label("Title for book "), 1, 1);
+            grid.add(new Label("ISBN for book "), 1, 1);
             grid.add(ISBNField, 2, 1);
 
             alert.getDialogPane().setContent(grid);
@@ -430,7 +430,7 @@ public class Controller  {
             grid.setHgap(5);
             grid.setVgap(5);
             grid.setPadding(new Insets(10, 10, 10, 10));
-            grid.add(new Label("Title for book "), 1, 1);
+            grid.add(new Label("Author name "), 1, 1);
             grid.add(authorField, 2, 1);
 
             alert.getDialogPane().setContent(grid);
